@@ -1,0 +1,46 @@
+<?php
+/**
+ * COPY THIS FILE TO config.php AND FILL IN YOUR OWN DETAILS.
+ *
+ * Steps:
+ *   1. Duplicate this file and rename the copy to "config.php"
+ *      (same folder, next to this file).
+ *   2. Fill in the four database values below - you get these from
+ *      Hostinger hPanel > Databases > MySQL Databases.
+ *   3. Change SITE_URL to your real domain once it is live.
+ *   4. Leave DEBUG_MODE as false unless you are troubleshooting.
+ *
+ * config.php itself should NEVER be shared, emailed, or committed to a
+ * public code repository - it holds your real database password.
+ * See README.md for the full step-by-step setup guide.
+ */
+
+// ---- Database connection ----
+// hPanel > Databases > MySQL Databases shows all four of these values
+// after you create a database.
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'your_database_name');
+define('DB_USER', 'your_database_username');
+define('DB_PASS', 'your_database_password');
+define('DB_CHARSET', 'utf8mb4');
+
+// ---- Site address ----
+// Your full site address, with no trailing slash at the end.
+define('SITE_URL', 'https://englishbadi.com');
+
+// ---- Outgoing email ----
+// The "From" address used for contact-form notifications and password
+// reset emails. An address at your own domain (e.g. no-reply@englishbadi.com)
+// is less likely to be marked as spam. It does not need to be a real inbox.
+define('MAIL_FROM_ADDRESS', 'no-reply@englishbadi.com');
+define('MAIL_FROM_NAME', 'English Badi');
+
+// ---- Timezone ----
+// Used for every date shown on the site (lessons, quiz attempts, etc).
+define('APP_TIMEZONE', 'Asia/Kolkata');
+
+// ---- Debug mode ----
+// Keep this set to false on your live site. Only change it to true
+// temporarily, on a test copy of the site, if you need to see the
+// detailed error message behind a problem.
+define('DEBUG_MODE', false);

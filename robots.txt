@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /logs/
+Disallow: /my-progress.php
+Disallow: /reset-password.php
+Allow: /uploads/
+
+Sitemap: https://englishbadi.com/sitemap.xml

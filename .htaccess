@@ -1,0 +1,93 @@
+# =====================================================================
+# English Badi - root .htaccess
+# Clean URLs, HTTPS, security headers, caching, compression.
+# =====================================================================
+
+# ---- Force HTTPS ----
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ---- Never allow directory listing ----
+Options -Indexes
+Options -MultiViews
+
+# ---- Hide the server signature ----
+ServerSignature Off
+
+# =====================================================================
+# Clean URL rewrites
+# =====================================================================
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sitemap served dynamically but addressed as a static file
+RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
+
+# Parameterised clean URLs
+RewriteRule ^lessons/([a-zA-Z0-9-]+)/?$ lesson.php?slug=$1 [L,QSA]
+RewriteRule ^quiz/([a-zA-Z0-9-]+)/?$ quiz.php?slug=$1 [L,QSA]
+
+# Generic clean URL -> matching .php file (covers /about, /contact,
+# /lessons, /links, /posters, /quizzes, /login, /register, and so on)
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.php [L,QSA]
+
+# ---- Friendly 404 ----
+ErrorDocument 404 /404.php
+ErrorDocument 403 /404.php
+
+# =====================================================================
+# Security headers
+# =====================================================================
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://img.youtube.com; media-src 'self'; frame-src https://www.youtube.com https://www.youtube-nocookie.com; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+    # Uncomment once you are certain HTTPS + your domain are fully working:
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# =====================================================================
+# Compression
+# =====================================================================
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# =====================================================================
+# Browser caching
+# =====================================================================
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+    AddType image/webp .webp
+</IfModule>
+
+# ---- Block access to sensitive files ----
+# setup.php is deliberately NOT listed here - it must be reachable once,
+# before an admin account exists, and refuses to run again after that
+# (see setup.php itself for that check).
+<FilesMatch "^(config\.php|schema\.sql|composer\.(json|lock))$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
