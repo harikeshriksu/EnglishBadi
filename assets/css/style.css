@@ -102,10 +102,10 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   width: 100%;
   max-width: var(--container-width);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 20px;
 }
-.section { padding: 32px 0; }
-.section--tight { padding: 20px 0; }
+.section { padding-top: 32px; padding-bottom: 32px; }
+.section--tight { padding-top: 20px; padding-bottom: 20px; }
 .text-center { text-align: center; }
 .muted { color: var(--color-ink-light); }
 
@@ -149,7 +149,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   max-width: var(--container-width);
   margin: 0 auto;
   height: 100%;
-  padding: 0 12px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -969,6 +969,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
    --------------------------------------------------------------------- */
 @media (min-width: 600px) {
   .container { padding: 0 24px; }
+  .site-header__inner { padding: 0 24px; }
   .latest-grid { grid-template-columns: repeat(3, 1fr); }
   .poster-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .dash-stats { grid-template-columns: repeat(4, 1fr); }
