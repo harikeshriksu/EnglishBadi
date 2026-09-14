@@ -45,7 +45,7 @@ $learner = current_learner();
         <button type="submit" aria-label="Search"><?php echo icon('search'); ?></button>
       </form>
       <?php if (!$learner): ?>
-      <a href="<?php echo e(base_url('/login')); ?>" class="site-nav__login-mobile">Login</a>
+      <a href="<?php echo e(base_url('/login')); ?>" class="site-nav__login">Login</a>
       <?php endif; ?>
       <?php foreach ($navItems as $key => [$href, $label]): ?>
       <a href="<?php echo e(base_url($href)); ?>" class="<?php echo $activeNav === $key ? 'is-active' : ''; ?>"><?php echo e($label); ?></a>
@@ -56,7 +56,6 @@ $learner = current_learner();
       <?php if ($learner): ?>
         <a href="<?php echo e(base_url('/my-progress')); ?>" class="auth-btn auth-btn--user"><?php echo e($learner['name']); ?></a>
       <?php else: ?>
-        <a href="<?php echo e(base_url('/login')); ?>" class="auth-btn auth-btn--login-desktop">Login</a>
         <a href="<?php echo e(base_url('/register')); ?>" class="auth-btn auth-btn--primary">Register</a>
       <?php endif; ?>
       <button type="button" class="hamburger" id="hamburger-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">

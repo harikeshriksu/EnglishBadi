@@ -199,14 +199,21 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 }
 .auth-btn--primary { background: var(--color-blue); color: #fff; }
 .auth-btn--user { border-color: var(--color-green); color: var(--color-green-dark); }
-.auth-btn--login-desktop { display: none; }
 
-.site-nav__login-mobile {
-  font-weight: 800 !important;
-  color: var(--color-blue) !important;
+/* Login lives once in the markup, inside .site-nav. Below the header's
+   desktop breakpoint it renders as the first row of the mobile drawer
+   (this styling); at/above that breakpoint it is repositioned via
+   `order` to sit next to Register instead - see section 15.
+   Selector is deliberately as specific as ".site-nav a" (class+type
+   twice over) so these overrides reliably win without needing
+   !important - a plain ".site-nav__login" class alone is LESS specific
+   than ".site-nav a" and silently loses the cascade to it. */
+.site-nav a.site-nav__login {
+  font-weight: 800;
+  color: var(--color-blue);
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 6px;
-  padding-bottom: 12px !important;
+  padding-bottom: 12px;
 }
 
 .hamburger {
@@ -261,6 +268,9 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 }
 .site-search input[type="search"] {
   flex: 1;
+  min-width: 0; /* form controls default to a non-zero intrinsic min-width
+                   in a flex row, which silently overflows a constrained
+                   parent (e.g. the 180px desktop search box) otherwise */
   border: none;
   outline: none;
   min-height: 40px;
@@ -965,26 +975,6 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 }
 
 @media (min-width: 860px) {
-  .hamburger { display: none; }
-  .auth-btn--login-desktop { display: inline-flex; }
-  .site-nav__login-mobile { display: none; }
-  .site-nav {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
-    inset: auto;
-    overflow: visible;
-    gap: 2px;
-    flex: 1;
-    margin: 0 16px;
-  }
-  .site-nav a { min-height: 40px; padding: 0 10px; font-size: 0.92rem; }
-  .site-search { order: 0; margin: 0 0 0 auto; width: 200px; }
-  .site-search input[type="search"] { min-height: 34px; }
-  .site-search button { width: 34px; height: 34px; }
-
   .home-tiles { grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; max-width: var(--container-width); margin: 0 auto; width: 100%; }
   .tile__icon { width: 44px; height: 44px; }
   .tile__label { font-size: 1.15rem; }
@@ -996,6 +986,65 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   .lesson-list__thumb { width: 96px; height: 96px; }
 
   .quiz-question-text { font-size: 1.3rem; }
+}
+
+/* ---- Desktop header --------------------------------------------------
+   A separate, higher breakpoint from the rest of the page: the navbar
+   has more items packed into it (logo, 8 links, search, login, register)
+   than a 4-column tile grid does, so it needs more room before it can
+   safely leave the hamburger/drawer pattern. Below this width the header
+   is untouched mobile behaviour (see section 4 base rules + is-open).
+   One flex row: logo | nav links (centre, growing) | search + login +
+   register (right). No absolute positioning, no negative margins -
+   ordering is done with flexbox `order` only. */
+@media (min-width: 1200px) {
+  .site-header__inner { max-width: 1440px; }
+
+  .hamburger { display: none; }
+
+  .site-nav {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    inset: auto;
+    overflow: visible;
+    gap: 4px;
+    flex: 1 1 0%;
+    min-width: 0;
+    margin: 0 20px;
+  }
+  .site-nav a {
+    min-height: 40px;
+    padding: 0 10px;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  /* Search and Login sort after the nav links (which keep their default
+     order: 0) so they land at the nav's right edge, right next to
+     Register - reading as one "search + auth" group on the right even
+     though Register itself lives in the sibling .site-header__actions. */
+  .site-search {
+    order: 10;
+    margin: 0;
+    width: 180px;
+    flex: 0 0 auto;
+  }
+  .site-search input[type="search"] { min-height: 34px; }
+  .site-search button { width: 34px; height: 34px; }
+
+  .site-nav a.site-nav__login {
+    order: 11;
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 14px;
+    margin-bottom: 0;
+    border: 1.5px solid var(--color-blue);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
 }
 
 @media (min-width: 1024px) {
