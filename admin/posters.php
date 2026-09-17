@@ -48,6 +48,7 @@ require_once __DIR__ . '/includes/admin-header.php';
   <?php foreach ($posters as $p): ?>
   <div class="admin-poster-grid__item">
     <img src="<?php echo e(upload_url($p['thumb_path'])); ?>" alt="<?php echo e($p['caption'] ?: ''); ?>" loading="lazy">
+    <?php if ($p['is_popular']): ?><span class="badge badge--popular admin-poster-grid__badge">Popular</span><?php endif; ?>
     <div class="admin-poster-grid__overlay">
       <a href="<?php echo e(base_url('/admin/poster-edit.php?id=' . $p['id'])); ?>" title="Edit"><?php echo icon('edit'); ?></a>
       <form method="post">

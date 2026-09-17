@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS lessons (
   excerpt TEXT NULL,
   body LONGTEXT NOT NULL,
   status ENUM('draft','published') NOT NULL DEFAULT 'draft',
+  is_popular TINYINT(1) NOT NULL DEFAULT 0,
   meta_description VARCHAR(300) NULL,
   publish_date DATETIME NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -103,6 +104,7 @@ CREATE TABLE IF NOT EXISTS lessons (
   CONSTRAINT fk_lesson_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
   INDEX idx_status_date (status, publish_date),
   INDEX idx_category (category_id),
+  INDEX idx_popular (is_popular),
   FULLTEXT KEY ft_lesson_search (title, body)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -121,12 +123,14 @@ CREATE TABLE IF NOT EXISTS links (
   youtube_video_id VARCHAR(20) NULL,
   display_order INT NOT NULL DEFAULT 0,
   status ENUM('draft','published') NOT NULL DEFAULT 'published',
+  is_popular TINYINT(1) NOT NULL DEFAULT 0,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_slug (slug),
   CONSTRAINT fk_link_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
   INDEX idx_order (display_order),
-  INDEX idx_status (status)
+  INDEX idx_status (status),
+  INDEX idx_popular (is_popular)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
@@ -142,9 +146,11 @@ CREATE TABLE IF NOT EXISTS posters (
   alt_text VARCHAR(255) NULL,
   category_id INT UNSIGNED NULL,
   display_order INT NOT NULL DEFAULT 0,
+  is_popular TINYINT(1) NOT NULL DEFAULT 0,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_poster_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
-  INDEX idx_order (display_order)
+  INDEX idx_order (display_order),
+  INDEX idx_popular (is_popular)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
@@ -157,10 +163,12 @@ CREATE TABLE IF NOT EXISTS quizzes (
   topic VARCHAR(150) NULL,
   description TEXT NULL,
   status ENUM('draft','published') NOT NULL DEFAULT 'draft',
+  is_popular TINYINT(1) NOT NULL DEFAULT 0,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_slug (slug),
-  INDEX idx_status (status)
+  INDEX idx_status (status),
+  INDEX idx_popular (is_popular)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- question_type is stored per-question (not per-quiz) so that a single

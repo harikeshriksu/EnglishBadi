@@ -43,6 +43,10 @@ function icon_definitions(): array
 
         'facebook' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v6h4v-6h2.5l.5-4H15V8z"/></svg>',
 
+        'whatsapp' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.5 13.9L3 21l4.3-1.4A9 9 0 1 0 12 3z"/><path d="M8.7 8.7c0 4 3.3 7.3 7.3 7.3.6 0 1-.5 1-1.2 0-.3-.1-.5-.4-.7l-1.7-1a.6.6 0 0 0-.7.1l-.4.4a5.7 5.7 0 0 1-2.9-2.9l.4-.4a.6.6 0 0 0 .1-.7l-1-1.7a.6.6 0 0 0-.7-.4c-.7 0-1.2.4-1.2 1z" fill="currentColor" stroke="none"/></svg>',
+
+        'telegram' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>',
+
         'upload-cloud' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1-1-7.9A5 5 0 0 1 16 8h.5a3.5 3.5 0 0 1 0 7"/><polyline points="12 12 12 21"/><polyline points="9 15 12 12 15 15"/></svg>',
 
         'plus' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',

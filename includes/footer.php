@@ -11,20 +11,24 @@
     $igUrl = setting('social_instagram');
     $ytUrl = setting('social_youtube');
     $fbUrl = setting('social_facebook');
-    if ($igUrl || $ytUrl || $fbUrl):
+    $waUrl = setting('social_whatsapp');
+    $tgUrl = setting('social_telegram');
+    if ($igUrl || $ytUrl || $fbUrl || $waUrl || $tgUrl):
     ?>
     <div class="site-footer__social">
       <?php if ($igUrl): ?><a href="<?php echo e($igUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?php echo icon('instagram'); ?></a><?php endif; ?>
       <?php if ($ytUrl): ?><a href="<?php echo e($ytUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?php echo icon('youtube'); ?></a><?php endif; ?>
       <?php if ($fbUrl): ?><a href="<?php echo e($fbUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?php echo icon('facebook'); ?></a><?php endif; ?>
+      <?php if ($waUrl): ?><a href="<?php echo e($waUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><?php echo icon('whatsapp'); ?></a><?php endif; ?>
+      <?php if ($tgUrl): ?><a href="<?php echo e($tgUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><?php echo icon('telegram'); ?></a><?php endif; ?>
     </div>
     <?php endif; ?>
     <p class="site-footer__copyright">&copy; <?php echo date('Y'); ?> <?php echo e(setting('site_title', 'English Badi')); ?>. All rights reserved.</p>
   </div>
 </footer>
-<script src="<?php echo e(base_url('/assets/js/main.js')); ?>" defer></script>
+<script src="<?php echo e(asset_url('/assets/js/main.js')); ?>" defer></script>
 <?php foreach ($extraScripts ?? [] as $script): ?>
-<script src="<?php echo e(base_url($script)); ?>" defer></script>
+<script src="<?php echo e(asset_url($script)); ?>" defer></script>
 <?php endforeach; ?>
 </body>
 </html>

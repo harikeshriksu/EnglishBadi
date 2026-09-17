@@ -14,7 +14,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && ($_POST['action'] ?? '') ==
 }
 
 $stmt = db()->query(
-    "SELECT q.id, q.title, q.topic, q.status,
+    "SELECT q.id, q.title, q.topic, q.status, q.is_popular,
             (SELECT COUNT(*) FROM quiz_questions qq WHERE qq.quiz_id = q.id) AS question_count,
             (SELECT COUNT(*) FROM quiz_attempts qa WHERE qa.quiz_id = q.id) AS attempt_count
      FROM quizzes q
@@ -44,7 +44,7 @@ require_once __DIR__ . '/includes/admin-header.php';
       <td><?php echo e($q['topic']); ?></td>
       <td><?php echo (int) $q['question_count']; ?></td>
       <td><?php echo (int) $q['attempt_count']; ?></td>
-      <td><span class="badge badge--<?php echo $q['status'] === 'published' ? 'published' : 'draft'; ?>"><?php echo e($q['status']); ?></span></td>
+      <td><span class="badge badge--<?php echo $q['status'] === 'published' ? 'published' : 'draft'; ?>"><?php echo e($q['status']); ?></span> <?php if ($q['is_popular']): ?><span class="badge badge--popular">Popular</span><?php endif; ?></td>
       <td>
         <div class="admin-table__actions">
           <a href="<?php echo e(base_url('/admin/quiz-form.php?id=' . $q['id'])); ?>" class="icon-btn-sm" title="Edit"><?php echo icon('edit'); ?></a>

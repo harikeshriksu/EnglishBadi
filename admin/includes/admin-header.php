@@ -31,9 +31,9 @@ $adminNavItems = [
 <title><?php echo e($adminPageTitle); ?> - English Badi Admin</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<?php echo rawurlencode(icon('logo')); ?>">
-<link rel="stylesheet" href="<?php echo e(base_url('/admin/assets/admin.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset_url('/admin/assets/admin.css')); ?>">
 <?php if ($loadPublicCss): ?>
-<link rel="stylesheet" href="<?php echo e(base_url('/assets/css/style.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset_url('/assets/css/style.css')); ?>">
 <?php endif; ?>
 </head>
 <body class="admin-body">

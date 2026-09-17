@@ -27,7 +27,7 @@ $learner = current_learner();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php render_seo_head($pageSeo); ?>
 <link rel="icon" href="data:image/svg+xml,<?php echo rawurlencode(icon('logo')); ?>">
-<link rel="stylesheet" href="<?php echo e(base_url('/assets/css/style.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset_url('/assets/css/style.css')); ?>">
 </head>
 <body>
 <a href="#main-content" class="visually-hidden">Skip to main content</a>
@@ -44,9 +44,6 @@ $learner = current_learner();
         <input type="search" id="site-search-input" name="q" placeholder="Search lessons, links, quizzes..." value="<?php echo e($_GET['q'] ?? ''); ?>">
         <button type="submit" aria-label="Search"><?php echo icon('search'); ?></button>
       </form>
-      <?php if (!$learner): ?>
-      <a href="<?php echo e(base_url('/login')); ?>" class="site-nav__login">Login</a>
-      <?php endif; ?>
       <?php foreach ($navItems as $key => [$href, $label]): ?>
       <a href="<?php echo e(base_url($href)); ?>" class="<?php echo $activeNav === $key ? 'is-active' : ''; ?>"><?php echo e($label); ?></a>
       <?php endforeach; ?>
@@ -56,7 +53,7 @@ $learner = current_learner();
       <?php if ($learner): ?>
         <a href="<?php echo e(base_url('/my-progress')); ?>" class="auth-btn auth-btn--user"><?php echo e($learner['name']); ?></a>
       <?php else: ?>
-        <a href="<?php echo e(base_url('/register')); ?>" class="auth-btn auth-btn--primary">Register</a>
+        <a href="<?php echo e(base_url('/login')); ?>" class="auth-btn auth-btn--primary">Login / Register</a>
       <?php endif; ?>
       <button type="button" class="hamburger" id="hamburger-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
         <?php echo icon('menu'); ?>

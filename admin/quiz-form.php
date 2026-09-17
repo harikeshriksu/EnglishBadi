@@ -91,6 +91,7 @@ $old = [
     'topic'       => $quiz['topic'] ?? '',
     'description' => $quiz['description'] ?? '',
     'status'      => $quiz['status'] ?? 'draft',
+    'is_popular'  => $quiz['is_popular'] ?? 0,
 ];
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
@@ -101,6 +102,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $old['topic'] = trim((string) ($_POST['topic'] ?? ''));
         $old['description'] = trim((string) ($_POST['description'] ?? ''));
         $old['status'] = ($_POST['status'] ?? 'draft') === 'published' ? 'published' : 'draft';
+        $old['is_popular'] = isset($_POST['is_popular']) ? 1 : 0;
 
         if ($old['title'] === '' || mb_strlen($old['title']) > 255) {
             $errors[] = 'Please enter a quiz title.';
@@ -157,14 +159,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     if (($_POST['regenerate_slug'] ?? '') === '1') {
                         $slug = unique_slug($old['title'], 'quizzes', (int) $quiz['id']);
                     }
-                    $stmt = $db->prepare('UPDATE quizzes SET title=?, slug=?, topic=?, description=?, status=? WHERE id=?');
-                    $stmt->execute([$old['title'], $slug, $old['topic'] ?: null, $old['description'] ?: null, $old['status'], $quiz['id']]);
+                    $stmt = $db->prepare('UPDATE quizzes SET title=?, slug=?, topic=?, description=?, status=?, is_popular=? WHERE id=?');
+                    $stmt->execute([$old['title'], $slug, $old['topic'] ?: null, $old['description'] ?: null, $old['status'], $old['is_popular'], $quiz['id']]);
                     $quizId = (int) $quiz['id'];
                     $db->prepare('DELETE FROM quiz_questions WHERE quiz_id = ?')->execute([$quizId]);
                 } else {
                     $slug = unique_slug($old['title'], 'quizzes');
-                    $stmt = $db->prepare('INSERT INTO quizzes (title, slug, topic, description, status) VALUES (?,?,?,?,?)');
-                    $stmt->execute([$old['title'], $slug, $old['topic'] ?: null, $old['description'] ?: null, $old['status']]);
+                    $stmt = $db->prepare('INSERT INTO quizzes (title, slug, topic, description, status, is_popular) VALUES (?,?,?,?,?,?)');
+                    $stmt->execute([$old['title'], $slug, $old['topic'] ?: null, $old['description'] ?: null, $old['status'], $old['is_popular']]);
                     $quizId = (int) $db->lastInsertId();
                 }
 
@@ -232,6 +234,9 @@ require_once __DIR__ . '/includes/admin-header.php';
     <div class="form-field">
       <label for="description">Short description (optional)</label>
       <textarea id="description" name="description" rows="2" maxlength="500"><?php echo e($old['description']); ?></textarea>
+    </div>
+    <div class="form-field">
+      <label style="font-weight:600;"><input type="checkbox" name="is_popular" value="1" style="width:auto;" <?php echo $old['is_popular'] ? 'checked' : ''; ?>> Show in Popular content on the homepage</label>
     </div>
     <?php if ($quiz): ?>
     <div class="form-field">

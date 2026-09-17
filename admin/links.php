@@ -58,7 +58,7 @@ require_once __DIR__ . '/includes/admin-header.php';
       <td class="wrap"><?php echo e($l['name']); ?><?php if ($l['youtube_video_id']): ?> <span class="badge badge--published">YouTube</span><?php endif; ?></td>
       <td class="wrap"><a href="<?php echo e($l['url']); ?>" target="_blank" rel="noopener"><?php echo e(mb_strimwidth($l['url'], 0, 50, '...')); ?></a></td>
       <td><?php echo e($l['category_name'] ?? '-'); ?></td>
-      <td><span class="badge badge--<?php echo $l['status'] === 'published' ? 'published' : 'draft'; ?>"><?php echo e($l['status']); ?></span></td>
+      <td><span class="badge badge--<?php echo $l['status'] === 'published' ? 'published' : 'draft'; ?>"><?php echo e($l['status']); ?></span> <?php if ($l['is_popular']): ?><span class="badge badge--popular">Popular</span><?php endif; ?></td>
       <td>
         <div class="admin-table__actions">
           <a href="<?php echo e(base_url('/admin/link-form.php?id=' . $l['id'])); ?>" class="icon-btn-sm" title="Edit"><?php echo icon('edit'); ?></a>

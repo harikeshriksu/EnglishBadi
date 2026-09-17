@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/includes/admin-guard.php';
 
-$settingKeys = ['site_title', 'site_tagline', 'homepage_intro', 'contact_email', 'social_instagram', 'social_youtube', 'social_facebook', 'meta_description_default'];
+$settingKeys = ['site_title', 'site_tagline', 'homepage_intro', 'contact_email', 'social_instagram', 'social_youtube', 'social_facebook', 'social_whatsapp', 'social_telegram', 'meta_description_default'];
 
 $errors = [];
 $passwordErrors = [];
@@ -102,7 +102,16 @@ require_once __DIR__ . '/includes/admin-header.php';
         <label for="social_facebook">Facebook URL</label>
         <input type="url" id="social_facebook" name="social_facebook" value="<?php echo e($currentSettings['social_facebook'] ?? ''); ?>" placeholder="https://facebook.com/...">
       </div>
+      <div class="form-field">
+        <label for="social_whatsapp">WhatsApp URL</label>
+        <input type="url" id="social_whatsapp" name="social_whatsapp" value="<?php echo e($currentSettings['social_whatsapp'] ?? ''); ?>" placeholder="https://wa.me/91XXXXXXXXXX">
+      </div>
+      <div class="form-field">
+        <label for="social_telegram">Telegram URL</label>
+        <input type="url" id="social_telegram" name="social_telegram" value="<?php echo e($currentSettings['social_telegram'] ?? ''); ?>" placeholder="https://t.me/yourchannel">
+      </div>
     </div>
+    <p class="form-hint">Leave any of these blank to hide that icon from the site footer entirely.</p>
     <div class="form-actions">
       <button type="submit" class="btn btn--primary">Save Settings</button>
     </div>

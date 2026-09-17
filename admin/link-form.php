@@ -23,6 +23,7 @@ $old = [
     'category_id'   => $link['category_id'] ?? '',
     'display_order' => $link['display_order'] ?? 0,
     'status'        => $link['status'] ?? 'published',
+    'is_popular'    => $link['is_popular'] ?? 0,
 ];
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
@@ -35,6 +36,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $old['category_id'] = (string) ($_POST['category_id'] ?? '');
         $old['display_order'] = (int) ($_POST['display_order'] ?? 0);
         $old['status'] = ($_POST['status'] ?? 'published') === 'draft' ? 'draft' : 'published';
+        $old['is_popular'] = isset($_POST['is_popular']) ? 1 : 0;
 
         if ($old['name'] === '' || mb_strlen($old['name']) > 255) {
             $errors[] = 'Please enter a link name.';
@@ -64,22 +66,22 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     $slug = unique_slug($old['name'], 'links', (int) $link['id']);
                 }
                 $stmt = db()->prepare(
-                    'UPDATE links SET name=?, slug=?, description=?, url=?, category_id=?, thumbnail=?, thumbnail_webp=?, youtube_video_id=?, display_order=?, status=? WHERE id=?'
+                    'UPDATE links SET name=?, slug=?, description=?, url=?, category_id=?, thumbnail=?, thumbnail_webp=?, youtube_video_id=?, display_order=?, status=?, is_popular=? WHERE id=?'
                 );
                 $stmt->execute([
                     $old['name'], $slug, $old['description'] ?: null, $old['url'], $categoryIdValue,
-                    $thumbPaths['thumbnail'], $thumbPaths['thumbnail_webp'], $youtubeId, $old['display_order'], $old['status'],
+                    $thumbPaths['thumbnail'], $thumbPaths['thumbnail_webp'], $youtubeId, $old['display_order'], $old['status'], $old['is_popular'],
                     $link['id'],
                 ]);
                 flash_set('success', 'Link updated.');
             } else {
                 $slug = unique_slug($old['name'], 'links');
                 $stmt = db()->prepare(
-                    'INSERT INTO links (name, slug, description, url, category_id, thumbnail, thumbnail_webp, youtube_video_id, display_order, status) VALUES (?,?,?,?,?,?,?,?,?,?)'
+                    'INSERT INTO links (name, slug, description, url, category_id, thumbnail, thumbnail_webp, youtube_video_id, display_order, status, is_popular) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
                 );
                 $stmt->execute([
                     $old['name'], $slug, $old['description'] ?: null, $old['url'], $categoryIdValue,
-                    $thumbPaths['thumbnail'], $thumbPaths['thumbnail_webp'], $youtubeId, $old['display_order'], $old['status'],
+                    $thumbPaths['thumbnail'], $thumbPaths['thumbnail_webp'], $youtubeId, $old['display_order'], $old['status'], $old['is_popular'],
                 ]);
                 flash_set('success', 'Link created.');
             }
@@ -139,6 +141,10 @@ require_once __DIR__ . '/includes/admin-header.php';
         <option value="draft" <?php echo $old['status'] === 'draft' ? 'selected' : ''; ?>>Draft</option>
       </select>
     </div>
+  </div>
+
+  <div class="form-field">
+    <label style="font-weight:600;"><input type="checkbox" name="is_popular" value="1" style="width:auto;" <?php echo $old['is_popular'] ? 'checked' : ''; ?>> Show in Popular content on the homepage</label>
   </div>
 
   <?php if ($link && $link['youtube_video_id']): ?>

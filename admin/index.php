@@ -32,7 +32,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Login - English Badi</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="<?php echo e(base_url('/admin/assets/admin.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset_url('/admin/assets/admin.css')); ?>">
 </head>
 <body class="admin-body">
 <div class="admin-center-screen">

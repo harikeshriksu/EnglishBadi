@@ -24,6 +24,7 @@ $old = [
     'excerpt'          => $lesson['excerpt'] ?? '',
     'body'             => $lesson['body'] ?? '',
     'status'           => $lesson['status'] ?? 'draft',
+    'is_popular'       => $lesson['is_popular'] ?? 0,
     'meta_description' => $lesson['meta_description'] ?? '',
     'publish_date'     => ($lesson['publish_date'] ?? null) ? date('Y-m-d\TH:i', strtotime($lesson['publish_date'])) : date('Y-m-d\TH:i'),
 ];
@@ -37,6 +38,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $old['excerpt'] = trim((string) ($_POST['excerpt'] ?? ''));
         $old['body'] = (string) ($_POST['body'] ?? '');
         $old['status'] = ($_POST['status'] ?? 'draft') === 'published' ? 'published' : 'draft';
+        $old['is_popular'] = isset($_POST['is_popular']) ? 1 : 0;
         $old['meta_description'] = trim((string) ($_POST['meta_description'] ?? ''));
         $old['publish_date'] = (string) ($_POST['publish_date'] ?? '');
 
@@ -84,24 +86,24 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     $slug = unique_slug($old['title'], 'lessons', (int) $lesson['id']);
                 }
                 $stmt = db()->prepare(
-                    'UPDATE lessons SET title=?, slug=?, category_id=?, featured_image=?, featured_image_webp=?, featured_thumb=?, featured_thumb_webp=?, excerpt=?, body=?, status=?, meta_description=?, publish_date=? WHERE id=?'
+                    'UPDATE lessons SET title=?, slug=?, category_id=?, featured_image=?, featured_image_webp=?, featured_thumb=?, featured_thumb_webp=?, excerpt=?, body=?, status=?, is_popular=?, meta_description=?, publish_date=? WHERE id=?'
                 );
                 $stmt->execute([
                     $old['title'], $slug, $categoryIdValue,
                     $imagePaths['featured_image'], $imagePaths['featured_image_webp'], $imagePaths['featured_thumb'], $imagePaths['featured_thumb_webp'],
-                    $excerptValue, $sanitizedBody, $old['status'], $old['meta_description'] ?: null, $publishDateSql,
+                    $excerptValue, $sanitizedBody, $old['status'], $old['is_popular'], $old['meta_description'] ?: null, $publishDateSql,
                     $lesson['id'],
                 ]);
                 flash_set('success', 'Lesson updated.');
             } else {
                 $slug = unique_slug($old['title'], 'lessons');
                 $stmt = db()->prepare(
-                    'INSERT INTO lessons (title, slug, category_id, featured_image, featured_image_webp, featured_thumb, featured_thumb_webp, excerpt, body, status, meta_description, publish_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'
+                    'INSERT INTO lessons (title, slug, category_id, featured_image, featured_image_webp, featured_thumb, featured_thumb_webp, excerpt, body, status, is_popular, meta_description, publish_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
                 );
                 $stmt->execute([
                     $old['title'], $slug, $categoryIdValue,
                     $imagePaths['featured_image'], $imagePaths['featured_image_webp'], $imagePaths['featured_thumb'], $imagePaths['featured_thumb_webp'],
-                    $excerptValue, $sanitizedBody, $old['status'], $old['meta_description'] ?: null, $publishDateSql,
+                    $excerptValue, $sanitizedBody, $old['status'], $old['is_popular'], $old['meta_description'] ?: null, $publishDateSql,
                 ]);
                 flash_set('success', 'Lesson created.');
             }
@@ -160,6 +162,10 @@ require_once __DIR__ . '/includes/admin-header.php';
       <label for="publish_date">Publish date</label>
       <input type="datetime-local" id="publish_date" name="publish_date" value="<?php echo e($old['publish_date']); ?>">
     </div>
+  </div>
+
+  <div class="form-field">
+    <label style="font-weight:600;"><input type="checkbox" name="is_popular" value="1" style="width:auto;" <?php echo $old['is_popular'] ? 'checked' : ''; ?>> Show in Popular content on the homepage</label>
   </div>
 
   <div class="form-field">

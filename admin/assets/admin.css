@@ -172,6 +172,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 .badge { display: inline-block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
 .badge--draft { background: var(--color-danger-tint); color: var(--color-danger); }
 .badge--published { background: var(--color-green-tint-1); color: var(--color-green-dark); }
+.badge--popular { background: var(--color-blue-tint-1); color: var(--color-blue-dark); }
 
 .form-field { margin-bottom: 16px; }
 .form-field label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
@@ -330,6 +331,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 }
 .admin-poster-grid__overlay svg { width: 16px; height: 16px; }
 .admin-poster-grid__caption { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.7rem; padding: 4px 6px; }
+.admin-poster-grid__badge { position: absolute; top: 6px; left: 6px; }
 
 /* Crop tool */
 .crop-modal { position: fixed; inset: 0; background: rgba(10,12,16,0.85); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }

@@ -19,6 +19,7 @@ $old = [
     'alt_text'      => $poster['alt_text'] ?? '',
     'category_id'   => $poster['category_id'] ?? '',
     'display_order' => $poster['display_order'] ?? 0,
+    'is_popular'    => $poster['is_popular'] ?? 0,
 ];
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
@@ -29,10 +30,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $old['alt_text'] = trim((string) ($_POST['alt_text'] ?? ''));
         $old['category_id'] = (string) ($_POST['category_id'] ?? '');
         $old['display_order'] = (int) ($_POST['display_order'] ?? 0);
+        $old['is_popular'] = isset($_POST['is_popular']) ? 1 : 0;
 
         $categoryIdValue = $old['category_id'] !== '' ? (int) $old['category_id'] : null;
-        $stmt = db()->prepare('UPDATE posters SET caption = ?, alt_text = ?, category_id = ?, display_order = ? WHERE id = ?');
-        $stmt->execute([$old['caption'] ?: null, $old['alt_text'] ?: null, $categoryIdValue, $old['display_order'], $poster['id']]);
+        $stmt = db()->prepare('UPDATE posters SET caption = ?, alt_text = ?, category_id = ?, display_order = ?, is_popular = ? WHERE id = ?');
+        $stmt->execute([$old['caption'] ?: null, $old['alt_text'] ?: null, $categoryIdValue, $old['display_order'], $old['is_popular'], $poster['id']]);
         flash_set('success', 'Poster updated.');
         redirect(base_url('/admin/posters.php'));
     }
@@ -78,6 +80,9 @@ require_once __DIR__ . '/includes/admin-header.php';
         <input type="number" id="display_order" name="display_order" value="<?php echo (int) $old['display_order']; ?>">
         <p class="form-hint">Lower numbers show first in the gallery.</p>
       </div>
+    </div>
+    <div class="form-field">
+      <label style="font-weight:600;"><input type="checkbox" name="is_popular" value="1" style="width:auto;" <?php echo $old['is_popular'] ? 'checked' : ''; ?>> Show in Popular content on the homepage</label>
     </div>
     <div class="form-actions">
       <button type="submit" class="btn btn--primary">Save</button>

@@ -146,6 +146,19 @@ function base_url(string $path = ''): string
     return rtrim(SITE_URL, '/') . $path;
 }
 
+/**
+ * Same as base_url(), but appends a cache-busting ?v= derived from the
+ * file's own last-modified time - so re-uploading a changed CSS/JS file
+ * automatically forces browsers to fetch the new version instead of an
+ * old cached copy, with no manual version number to remember to bump.
+ */
+function asset_url(string $path): string
+{
+    $full = PROJECT_ROOT . '/' . ltrim($path, '/');
+    $version = file_exists($full) ? (string) filemtime($full) : (string) time();
+    return base_url($path) . '?v=' . $version;
+}
+
 function redirect(string $url): never
 {
     header('Location: ' . $url);
