@@ -16,7 +16,7 @@ function render_seo_head(array $seo): void
     $description = trim($seo['description'] ?? '') ?: setting('meta_description_default', '');
     $canonical = $seo['canonical'] ?? current_url();
     $type = $seo['type'] ?? 'website';
-    $image = $seo['image'] ?? null;
+    $image = $seo['image'] ?? base_url('/assets/img/logo-og.png');
     $noindex = $seo['noindex'] ?? false;
 
     echo '<title>' . e($fullTitle) . "</title>\n";

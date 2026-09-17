@@ -175,7 +175,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   font-size: 1.05rem;
   min-height: 44px;
 }
-.site-logo__mark { width: 32px; height: 32px; flex-shrink: 0; }
+.site-logo__mark { height: 32px; width: auto; flex-shrink: 0; }
 .site-header__actions { display: flex; align-items: center; gap: 6px; }
 
 .icon-btn {
@@ -571,14 +571,24 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   flex-shrink: 0;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: var(--color-blue-tint-1);
+  background: var(--color-bg-alt);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-blue);
 }
 .lesson-list__thumb img { width: 100%; height: 100%; object-fit: cover; }
-.lesson-list__thumb svg { width: 30px; height: 30px; }
+
+/* Shown instead of a real featured image, on lessons.php cards and the
+   homepage Latest/Popular strips, whenever a lesson has none - kept
+   deliberately smaller and faded so it still reads as "no image", not
+   as the lesson's actual artwork. */
+.lesson-list__thumb img.thumb-fallback__logo,
+.latest-card__thumb img.thumb-fallback__logo {
+  width: 42%;
+  height: 42%;
+  object-fit: contain;
+  opacity: 0.5;
+}
 .lesson-list__body { flex: 1; min-width: 0; }
 .lesson-list__title { font-size: 1rem; font-weight: 700; margin: 0 0 4px; }
 .lesson-list__excerpt {

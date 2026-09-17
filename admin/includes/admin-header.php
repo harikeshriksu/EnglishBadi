@@ -30,7 +30,7 @@ $adminNavItems = [
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?php echo e($adminPageTitle); ?> - English Badi Admin</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,<?php echo rawurlencode(icon('logo')); ?>">
+<link rel="icon" href="<?php echo e(asset_url('/favicon.ico')); ?>" sizes="any">
 <link rel="stylesheet" href="<?php echo e(asset_url('/admin/assets/admin.css')); ?>">
 <?php if ($loadPublicCss): ?>
 <link rel="stylesheet" href="<?php echo e(asset_url('/assets/css/style.css')); ?>">
@@ -40,7 +40,7 @@ $adminNavItems = [
 <header class="admin-header">
   <div class="admin-header__inner">
     <a href="<?php echo e(base_url('/admin/dashboard.php')); ?>" class="admin-logo">
-      <?php echo icon_html('logo', 'admin-logo__mark'); ?>
+      <img src="<?php echo e(asset_url('/assets/img/logo-header.png')); ?>" alt="" class="admin-logo__mark">
       <span>English Badi <small>Admin</small></span>
     </a>
     <button type="button" class="admin-hamburger" id="admin-hamburger" aria-expanded="false" aria-controls="admin-nav" aria-label="Menu">

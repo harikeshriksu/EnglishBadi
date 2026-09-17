@@ -127,6 +127,8 @@ require_once __DIR__ . '/includes/header.php';
         <span class="latest-card__type"><?php echo e($item['type']); ?></span>
         <?php if ($item['thumb']): ?>
           <?php echo render_picture($item['thumb'], $item['thumb_webp'], ''); ?>
+        <?php elseif ($item['type'] === 'Lesson'): ?>
+          <img src="<?php echo e(asset_url('/assets/img/logo.png')); ?>" alt="<?php echo e($item['title_display']); ?>" class="thumb-fallback__logo" loading="lazy">
         <?php endif; ?>
       </div>
       <div class="latest-card__body">
@@ -149,6 +151,8 @@ require_once __DIR__ . '/includes/header.php';
         <span class="latest-card__type"><?php echo e($item['type']); ?></span>
         <?php if ($item['thumb']): ?>
           <?php echo render_picture($item['thumb'], $item['thumb_webp'], ''); ?>
+        <?php elseif ($item['type'] === 'Lesson'): ?>
+          <img src="<?php echo e(asset_url('/assets/img/logo.png')); ?>" alt="<?php echo e($item['title_display']); ?>" class="thumb-fallback__logo" loading="lazy">
         <?php endif; ?>
       </div>
       <div class="latest-card__body">

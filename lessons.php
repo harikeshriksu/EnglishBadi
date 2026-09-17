@@ -65,7 +65,7 @@ require_once __DIR__ . '/includes/header.php';
         <?php if ($thumbUrl): ?>
           <?php echo render_picture($thumbUrl, upload_url($lesson['featured_thumb_webp']), ''); ?>
         <?php else: ?>
-          <?php echo icon('book'); ?>
+          <img src="<?php echo e(asset_url('/assets/img/logo.png')); ?>" alt="<?php echo e($lesson['title']); ?>" class="thumb-fallback__logo" loading="lazy">
         <?php endif; ?>
       </div>
       <div class="lesson-list__body">

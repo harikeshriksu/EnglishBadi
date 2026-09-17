@@ -26,7 +26,8 @@ $learner = current_learner();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php render_seo_head($pageSeo); ?>
-<link rel="icon" href="data:image/svg+xml,<?php echo rawurlencode(icon('logo')); ?>">
+<link rel="icon" href="<?php echo e(asset_url('/favicon.ico')); ?>" sizes="any">
+<link rel="apple-touch-icon" href="<?php echo e(asset_url('/apple-touch-icon.png')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset_url('/assets/css/style.css')); ?>">
 </head>
 <body>
@@ -34,7 +35,7 @@ $learner = current_learner();
 <header class="site-header">
   <div class="site-header__inner">
     <a href="<?php echo e(base_url('/')); ?>" class="site-logo" aria-label="English Badi home">
-      <?php echo icon_html('logo', 'site-logo__mark'); ?>
+      <img src="<?php echo e(asset_url('/assets/img/logo-header.png')); ?>" alt="" class="site-logo__mark">
       <span>English Badi</span>
     </a>
 

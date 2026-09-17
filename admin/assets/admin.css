@@ -79,7 +79,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   font-size: 0.95rem;
 }
 .admin-logo small { font-weight: 500; opacity: 0.7; font-size: 0.75rem; }
-.admin-logo__mark { width: 26px; height: 26px; }
+.admin-logo__mark { height: 26px; width: auto; }
 .admin-hamburger {
   margin-left: auto;
   background: transparent;
