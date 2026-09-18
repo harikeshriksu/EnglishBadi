@@ -15,17 +15,49 @@
 
 define('PROJECT_ROOT', dirname(__DIR__));
 
-$configFile = PROJECT_ROOT . '/config.php';
+/**
+ * config.php is looked for in two places, in this order:
+ *   1. One directory ABOVE the web root (outside public_html) - the
+ *      recommended location, since a Git-based deploy that syncs
+ *      public_html can never reach a file that lives above it.
+ *   2. Inside the web root itself, next to this project's other files
+ *      (the simpler option, kept for anyone who hasn't moved it yet).
+ * See README.md for how to set either one up.
+ */
+$externalConfigFile = dirname(PROJECT_ROOT) . '/config.php';
+$inRootConfigFile = PROJECT_ROOT . '/config.php';
+$configFile = file_exists($externalConfigFile) ? $externalConfigFile : $inRootConfigFile;
+
+// Written once config.php has ever loaded successfully, next to wherever
+// config.php itself is recommended to live (outside public_html) so it
+// survives the same deploys config.php now does. Lets us tell "this has
+// never been set up" apart from "this was working and config.php just
+// went missing" - the second one shouldn't show a public setup wizard.
+$setupMarkerFile = dirname(PROJECT_ROOT) . '/.eb-configured';
 
 if (!file_exists($configFile)) {
     http_response_code(500);
+
+    if (file_exists($setupMarkerFile)) {
+        ?><!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>English Badi</title></head>
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:60px auto;padding:0 20px;color:#1F2328;line-height:1.6;">
+<h1 style="color:#4A5FBF;">We're having a technical problem</h1>
+<p>Please try again in a few minutes. If this keeps happening, please let the site administrator know.</p>
+</body>
+</html>
+        <?php
+        exit;
+    }
+
     ?><!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>One more step - English Badi</title></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:60px auto;padding:0 20px;color:#1F2328;line-height:1.6;">
 <h1 style="color:#4A5FBF;">One more step</h1>
-<p><code>config.php</code> was not found in the site's root folder.</p>
-<p>Copy <code>config.php.example</code>, rename the copy to <code>config.php</code>, fill in your database details, and reload this page.</p>
+<p><code>config.php</code> was not found.</p>
+<p>Copy <code>config.php.example</code>, rename the copy to <code>config.php</code>, fill in your database details, and either place it one directory above your site's root folder (recommended) or in the root folder itself, then reload this page.</p>
 <p>Full instructions are in <code>README.md</code>.</p>
 </body>
 </html>
@@ -34,6 +66,10 @@ if (!file_exists($configFile)) {
 }
 
 require_once $configFile;
+
+if (!file_exists($setupMarkerFile)) {
+    @touch($setupMarkerFile);
+}
 
 // ---- Error handling: log everything, never show raw errors ----
 error_reporting(E_ALL);

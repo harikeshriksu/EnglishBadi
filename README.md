@@ -56,11 +56,32 @@ password. Everything you type should be copied exactly.
 
 ## Step 3: Create your config.php file
 
-1. Back in File Manager, find the file `config.php.example` inside
-   `public_html`.
-2. Right-click it and choose **Copy**, then create the copy in the same
-   folder and rename it to exactly `config.php` (no `.example` at the
-   end).
+`config.php` holds your real database password, so the site looks for
+it in **two possible places** - pick one:
+
+- **Option A - one folder above `public_html` (recommended).** In File
+  Manager, `public_html` sits inside another folder (often
+  `domains/yourdomain.com/`). Navigate up one level from `public_html`
+  (click the parent folder in the path bar near the top) and put
+  `config.php` there instead, as a sibling of `public_html`, not inside
+  it.
+
+  This is the safer option if you ever use Hostinger's **Git-based
+  deployment** (auto-deploying from a GitHub repo) instead of manually
+  uploading files: a Git deploy only ever touches files *inside*
+  `public_html`, so a `config.php` living just outside it can never be
+  touched, overwritten, or deleted by a deploy - no matter how that
+  deploy is configured.
+- **Option B - directly inside `public_html`.** Simpler, and fine if
+  you only ever update the site by uploading files manually through
+  File Manager. Not recommended if you also use Git deployment, since a
+  future deploy could remove it (see the Git warning below).
+
+Either way, the steps are the same:
+
+1. Find the file `config.php.example` inside `public_html`.
+2. Copy it to whichever location you chose above, and rename the copy
+   to exactly `config.php` (no `.example` at the end).
 3. Right-click `config.php` and choose **Edit** (or **Code Editor**).
 4. Fill in the four database values from Step 2:
    ```
@@ -75,8 +96,34 @@ password. Everything you type should be copied exactly.
    ```
 6. Save the file.
 
-**Important:** keep `config.php` private. Never send it to anyone or
-upload it anywhere public - it contains your database password.
+**Important:** keep `config.php` private. Never send it to anyone,
+upload it anywhere public, or commit it to a Git repository - it
+contains your database password. If both an outside-`public_html` copy
+and an inside-`public_html` copy exist at the same time, the outside
+one is used.
+
+### If you deploy with Git
+
+If you connect this repository to Hostinger's Git deployment feature
+(hPanel > **Advanced > Git**), be aware that **`config.php` and the
+contents of `/uploads/` are deliberately not part of the repository**
+(see `.gitignore`) - a deploy only manages files that Git tracks, so it
+should never touch either. That said:
+
+- If you ever see the site go down with a "technical problem" message
+  right after a deploy, check that `config.php` is still where you left
+  it (Option A above makes this impossible in the first place).
+- Some Git deployment tools offer a "clean"/mirror sync mode that
+  deletes anything in `public_html` not present in the repository -
+  including files Git never tracked, like `config.php` sitting loose
+  inside `public_html`, or real photos/posters inside `/uploads/`.
+  Check your Git deployment settings for this and prefer a
+  non-destructive sync mode if one is offered. Option A protects
+  `config.php` from this either way; `/uploads/` cannot be moved out of
+  `public_html` (the site needs to serve those files directly), so if
+  your deploy tool only offers a destructive sync, avoid deploying over
+  a live site that has real uploaded content, or check Hostinger's
+  support docs for a way to exclude `/uploads/` from the sync.
 
 ---
 
@@ -166,9 +213,18 @@ change anything else.
 
 ## Troubleshooting
 
-- **"config.php was not found" message** - you haven't completed Step 3,
-  or the file isn't named exactly `config.php` (check for a leftover
-  `.txt` or `.example` at the end of the filename).
+- **"One more step" / "config.php was not found" message** - you
+  haven't completed Step 3 yet, or the file isn't named exactly
+  `config.php` (check for a leftover `.txt` or `.example` at the end of
+  the filename), or it's in neither of the two locations Step 3
+  describes.
+- **"We're having a technical problem" message on a site that was
+  already working** - this is the same underlying cause (`config.php`
+  is missing) but shown differently because the site had been
+  successfully set up before. Something removed `config.php` after the
+  fact - most likely a Git deploy (see the Git warning in Step 3).
+  Re-check that the file is still in place; moving it to Option A
+  (outside `public_html`) prevents this from happening again.
 - **A blank white page** - this usually means a database detail in
   `config.php` is wrong. Double-check the four values from Step 2 for
   typos, extra spaces, or missing quote marks.
@@ -181,6 +237,11 @@ change anything else.
   `/uploads/` folder (and its subfolders) uploaded correctly and is
   writable; most Hostinger accounts allow this by default with no extra
   steps needed.
+- **Real photos/posters disappeared after a Git deploy** - `/uploads/`
+  content is real, uploaded data, not part of the repository (see
+  `.gitignore`), so a deploy should never touch it - unless your Git
+  deployment tool is set to a destructive "clean"/mirror sync mode. See
+  the Git warning in Step 3.
 
 For day-to-day use of the site once it's live - adding lessons, links,
 posters and quizzes, and how to back everything up - see **GUIDE.md**.

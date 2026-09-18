@@ -1,0 +1,27 @@
+# Real database credentials - never commit this file. Copy
+# config.php.example instead. See README.md for the recommended,
+# deploy-safe location one directory above the web root.
+/config.php
+
+# User-uploaded content (lesson images, posters, etc.) is runtime data,
+# not source code, and must never be committed - a deploy that syncs
+# this repo would otherwise overwrite or delete real uploaded files.
+# The folder itself (and its execute-protection .htaccess) stay tracked
+# so a fresh deploy doesn't 404 on image paths; everything uploaded
+# into it does not.
+/uploads/*
+!/uploads/.htaccess
+!/uploads/.gitkeep
+
+# Runtime logs - same reasoning as /uploads/.
+/logs/*
+!/logs/.htaccess
+!/logs/.gitkeep
+
+# Local testing artifacts
+*.sqlite
+*.sqlite3
+node_modules/
+test-results/
+playwright-report/
+/scratchpad/
