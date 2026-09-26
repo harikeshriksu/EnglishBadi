@@ -113,7 +113,10 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="home-intro container">
   <h1 class="visually-hidden"><?php echo e(setting('site_title', 'English Badi')); ?></h1>
-  <p><?php echo e(setting('homepage_intro')); ?></p>
+  <div class="home-intro__callout">
+    <?php echo icon_html('book', 'home-intro__callout-icon'); ?>
+    <p><?php echo e(setting('homepage_intro')); ?></p>
+  </div>
   <a href="<?php echo e(base_url('/start-here')); ?>" class="btn btn--primary">Start Here</a>
 </div>
 
