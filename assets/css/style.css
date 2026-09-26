@@ -155,6 +155,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   border-bottom: 1px solid var(--color-border);
   height: var(--header-height);
 }
+.site-header__top, .site-header__bottom { display: none; }
 .site-header__inner {
   max-width: var(--container-width);
   margin: 0 auto;
@@ -1058,42 +1059,59 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
    register (right). No absolute positioning, no negative margins -
    ordering is done with flexbox `order` only. */
 @media (min-width: 1200px) {
-  .site-header__inner { max-width: 1440px; }
+  :root { --header-height: 118px; }
+  .site-header { height: auto; }
+  .site-header__inner--compact { display: none; }
+  .site-header__top, .site-header__bottom { display: block; }
 
-  .hamburger { display: none; }
-
-  .site-nav {
-    position: static;
-    transform: none;
-    flex-direction: row;
+  .site-header__top { background: var(--color-blue); }
+  .site-header__top-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
     align-items: center;
-    padding: 0;
-    inset: auto;
-    overflow: visible;
-    gap: 4px;
-    flex: 1 1 0%;
-    min-width: 0;
-    margin: 0 20px;
+    justify-content: space-between;
+    gap: 16px;
   }
-  .site-nav a {
+  .site-logo--lg { color: #fff; font-size: 1.4rem; }
+  .site-logo--lg .site-logo__mark {
+    height: 40px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 4px 6px;
+  }
+  .site-header__top-actions { display: flex; align-items: center; gap: 14px; }
+  .site-header__top-actions .site-search { margin: 0; width: 260px; flex: 0 0 auto; background: #fff; }
+  .site-header__top-actions .auth-btn--primary { background: #fff; color: var(--color-blue-dark); }
+  .site-header__top-actions .auth-btn--user { background: #fff; }
+
+  .site-header__bottom { background: var(--color-blue-dark); }
+  .site-header__bottom-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .site-nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 48px;
+  }
+  .site-nav-desktop a {
+    display: flex;
+    align-items: center;
     min-height: 40px;
-    padding: 0 10px;
+    padding: 0 12px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 600;
     font-size: 0.92rem;
     white-space: nowrap;
+    border-radius: var(--radius-sm);
   }
-
-  /* Search and Login sort after the nav links (which keep their default
-     order: 0) so they land at the nav's right edge, right next to
-     Register - reading as one "search + auth" group on the right even
-     though Register itself lives in the sibling .site-header__actions. */
-  .site-search {
-    order: 10;
-    margin: 0;
-    width: 180px;
-    flex: 0 0 auto;
-  }
-  .site-search input[type="search"] { min-height: 34px; }
-  .site-search button { width: 34px; height: 34px; }
+  .site-nav-desktop a:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+  .site-nav-desktop a.is-active { background: #fff; color: var(--color-blue-dark); }
 }
 
 /* At >=1024px the tiles become compact horizontal rows (icon left, label
