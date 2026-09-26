@@ -147,7 +147,7 @@ require_once __DIR__ . '/includes/header.php';
 <?php if ($latest): ?>
 <section class="latest-strip container">
   <h2>Latest content</h2>
-  <div class="latest-grid">
+  <div class="latest-grid latest-grid--scroll">
     <?php foreach ($latest as $item): ?>
     <a class="latest-card" href="<?php echo e($item['url']); ?>">
       <div class="latest-card__thumb">
