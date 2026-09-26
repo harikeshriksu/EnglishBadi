@@ -1146,6 +1146,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
     grid-template-rows: auto auto;
     column-gap: 18px;
     align-items: center;
+    align-content: center;
     text-align: left;
     min-height: 160px;
     padding: 24px 28px;
