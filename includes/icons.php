@@ -42,6 +42,7 @@ function icon_definitions(): array
         'youtube' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l6 2.5-6 2.5z" fill="currentColor" stroke="none"/></svg>',
 
         'facebook' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v6h4v-6h2.5l.5-4H15V8z"/></svg>',
+        'twitter' => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2.4h3.1l-6.8 7.8L23.3 21.6h-6.3l-4.9-6.4-5.6 6.4H3.4l7.3-8.4L3 2.4h6.4l4.4 5.9zm-1.1 17.2h1.7L7.3 4.3H5.5z"/></svg>',
 
         'whatsapp' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.5 13.9L3 21l4.3-1.4A9 9 0 1 0 12 3z"/><path d="M8.7 8.7c0 4 3.3 7.3 7.3 7.3.6 0 1-.5 1-1.2 0-.3-.1-.5-.4-.7l-1.7-1a.6.6 0 0 0-.7.1l-.4.4a5.7 5.7 0 0 1-2.9-2.9l.4-.4a.6.6 0 0 0 .1-.7l-1-1.7a.6.6 0 0 0-.7-.4c-.7 0-1.2.4-1.2 1z" fill="currentColor" stroke="none"/></svg>',
 

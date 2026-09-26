@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/includes/admin-guard.php';
 
-$settingKeys = ['site_title', 'site_tagline', 'homepage_intro', 'contact_email', 'social_instagram', 'social_youtube', 'social_facebook', 'social_whatsapp', 'social_telegram', 'meta_description_default'];
+$settingKeys = ['site_title', 'site_tagline', 'homepage_intro', 'contact_email', 'social_instagram', 'social_youtube', 'social_facebook', 'social_twitter', 'social_whatsapp', 'social_telegram', 'meta_description_default'];
 
 $errors = [];
 $passwordErrors = [];
@@ -101,6 +101,10 @@ require_once __DIR__ . '/includes/admin-header.php';
       <div class="form-field">
         <label for="social_facebook">Facebook URL</label>
         <input type="url" id="social_facebook" name="social_facebook" value="<?php echo e($currentSettings['social_facebook'] ?? ''); ?>" placeholder="https://facebook.com/...">
+      </div>
+      <div class="form-field">
+        <label for="social_twitter">Twitter / X URL</label>
+        <input type="url" id="social_twitter" name="social_twitter" value="<?php echo e($currentSettings['social_twitter'] ?? ''); ?>" placeholder="https://x.com/...">
       </div>
       <div class="form-field">
         <label for="social_whatsapp">WhatsApp URL</label>

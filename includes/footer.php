@@ -11,14 +11,16 @@
     $igUrl = setting('social_instagram');
     $ytUrl = setting('social_youtube');
     $fbUrl = setting('social_facebook');
+    $twUrl = setting('social_twitter');
     $waUrl = setting('social_whatsapp');
     $tgUrl = setting('social_telegram');
-    if ($igUrl || $ytUrl || $fbUrl || $waUrl || $tgUrl):
+    if ($igUrl || $ytUrl || $fbUrl || $twUrl || $waUrl || $tgUrl):
     ?>
     <div class="site-footer__social">
       <?php if ($igUrl): ?><a href="<?php echo e($igUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?php echo icon('instagram'); ?></a><?php endif; ?>
       <?php if ($ytUrl): ?><a href="<?php echo e($ytUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?php echo icon('youtube'); ?></a><?php endif; ?>
       <?php if ($fbUrl): ?><a href="<?php echo e($fbUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?php echo icon('facebook'); ?></a><?php endif; ?>
+      <?php if ($twUrl): ?><a href="<?php echo e($twUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"><?php echo icon('twitter'); ?></a><?php endif; ?>
       <?php if ($waUrl): ?><a href="<?php echo e($waUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><?php echo icon('whatsapp'); ?></a><?php endif; ?>
       <?php if ($tgUrl): ?><a href="<?php echo e($tgUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><?php echo icon('telegram'); ?></a><?php endif; ?>
     </div>
