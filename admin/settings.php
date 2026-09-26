@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/includes/admin-guard.php';
 
-$settingKeys = ['site_title', 'site_tagline', 'homepage_intro', 'contact_email', 'social_instagram', 'social_youtube', 'social_facebook', 'social_twitter', 'social_whatsapp', 'social_telegram', 'meta_description_default'];
+$settingKeys = ['site_title', 'site_tagline', 'homepage_intro', 'contact_email', 'social_instagram', 'social_youtube', 'social_facebook', 'social_twitter', 'social_whatsapp', 'social_telegram', 'whatsapp_channel_url', 'meta_description_default'];
 
 $errors = [];
 $passwordErrors = [];
@@ -116,6 +116,13 @@ require_once __DIR__ . '/includes/admin-header.php';
       </div>
     </div>
     <p class="form-hint">Leave any of these blank to hide that icon from the site footer entirely.</p>
+
+    <div class="form-field">
+      <label for="whatsapp_channel_url">WhatsApp channel URL</label>
+      <input type="url" id="whatsapp_channel_url" name="whatsapp_channel_url" value="<?php echo e($currentSettings['whatsapp_channel_url'] ?? ''); ?>" placeholder="https://whatsapp.com/channel/REPLACE_WITH_REAL_LINK">
+      <p class="form-hint">Powers the "Join our WhatsApp channel" button in the footer. This is a channel (broadcast) link, separate from the personal WhatsApp URL above. Placeholder - fill in your real channel link, then the button appears automatically; leave blank to hide it.</p>
+    </div>
+
     <div class="form-actions">
       <button type="submit" class="btn btn--primary">Save Settings</button>
     </div>

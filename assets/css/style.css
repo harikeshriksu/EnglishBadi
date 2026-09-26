@@ -317,6 +317,21 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   align-items: center;
 }
 .site-footer__links a:hover { color: var(--color-blue); }
+.site-footer__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 18px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--color-green);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.site-footer__whatsapp:hover { background: var(--color-green-dark); }
+.site-footer__whatsapp svg { width: 20px; height: 20px; }
 .site-footer__social {
   display: flex;
   justify-content: center;

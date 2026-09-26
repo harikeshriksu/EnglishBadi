@@ -7,6 +7,12 @@
       <a href="<?php echo e(base_url('/privacy')); ?>">Privacy Policy</a>
       <a href="<?php echo e(base_url('/terms')); ?>">Terms</a>
     </nav>
+    <?php $whatsappChannelUrl = setting('whatsapp_channel_url'); ?>
+    <?php if ($whatsappChannelUrl): ?>
+    <a href="<?php echo e($whatsappChannelUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__whatsapp">
+      <?php echo icon('whatsapp'); ?> Join our WhatsApp channel
+    </a>
+    <?php endif; ?>
     <?php
     $igUrl = setting('social_instagram');
     $ytUrl = setting('social_youtube');
