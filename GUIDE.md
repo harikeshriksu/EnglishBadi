@@ -146,11 +146,10 @@ many at once.
    - Click **Remove** next to any file you change your mind about.
 4. Once every file is ready, the **Upload** button becomes active - click
    it. All your posters are processed and added at once.
-5. Your new posters appear at the bottom of the page, without captions
-   yet.
-6. Hover over (or tap) any poster in the grid and click the **pencil
-   icon** to add a **Caption**, **Alt text**, a **Category**, and a
-   **Display order** - this is the "caption them afterwards" step.
+5. You're taken straight to a **Caption Your New Posters** page listing
+   everything you just uploaded. A **Caption** is required for each one
+   before you can click **Finish** - Alt text and Category are optional
+   there too, so you can fill those in at the same time if you like.
 
 ### Editing or deleting a poster
 

@@ -157,7 +157,11 @@
           if (data.failures && data.failures.length) {
             window.alert('Uploaded ' + data.inserted + ' poster(s). Some files could not be processed:\n' + data.failures.join('\n'));
           }
-          window.location.reload();
+          if (data.ids && data.ids.length) {
+            window.location.href = form.getAttribute('data-caption-url') + '?ids=' + data.ids.join(',');
+          } else {
+            window.location.reload();
+          }
         } else {
           window.alert(data.error || 'Some images could not be uploaded.');
           uploadBtn.disabled = false;

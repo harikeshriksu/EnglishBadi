@@ -31,6 +31,7 @@ $stmt = db()->query('SELECT COALESCE(MAX(display_order), 0) FROM posters');
 $displayOrder = (int) $stmt->fetchColumn();
 
 $inserted = 0;
+$insertedIds = [];
 $failures = [];
 
 for ($i = 0; $i < $count; $i++) {
@@ -61,6 +62,7 @@ for ($i = 0; $i < $count; $i++) {
             'INSERT INTO posters (caption, image_path, thumb_path, webp_path, webp_thumb_path, alt_text, category_id, display_order) VALUES (NULL, ?, ?, ?, ?, NULL, NULL, ?)'
         );
         $stmt->execute([$paths['image_path'], $paths['thumb_path'], $paths['webp_path'], $paths['webp_thumb_path'], $displayOrder]);
+        $insertedIds[] = (int) db()->lastInsertId();
         $inserted++;
     } catch (ImageProcessingException $e) {
         $failures[] = $originalName . ': ' . $e->getMessage();
@@ -74,4 +76,4 @@ if ($inserted === 0) {
     json_response(['ok' => false, 'error' => $failures ? implode(' ', $failures) : 'No images could be uploaded.']);
 }
 
-json_response(['ok' => true, 'inserted' => $inserted, 'failures' => $failures]);
+json_response(['ok' => true, 'inserted' => $inserted, 'ids' => $insertedIds, 'failures' => $failures]);

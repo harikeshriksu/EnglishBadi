@@ -30,10 +30,10 @@ require_once __DIR__ . '/includes/admin-header.php';
 <div class="poster-dropzone" id="poster-dropzone" tabindex="0" role="button" aria-label="Add posters: click or drop image files here">
   <?php echo icon('upload-cloud'); ?>
   <p style="font-weight:700;margin:0;">Click here, or drag and drop images to add posters</p>
-  <p class="poster-dropzone__note">Best size: 1080 &times; 1080 pixels (square). Accepts JPG, PNG, WEBP, GIF, BMP, TIFF, HEIC or PDF. You can add many at once and caption them afterwards.</p>
+  <p class="poster-dropzone__note">Best size: 1080 &times; 1080 pixels (square). Accepts JPG, PNG, WEBP, GIF, BMP, TIFF, HEIC or PDF. You can add many at once - you'll be asked to caption each one right after uploading.</p>
 </div>
 
-<form id="poster-upload-form" action="<?php echo e(base_url('/admin/poster-upload.php')); ?>" method="post" enctype="multipart/form-data">
+<form id="poster-upload-form" action="<?php echo e(base_url('/admin/poster-upload.php')); ?>" data-caption-url="<?php echo e(base_url('/admin/poster-caption.php')); ?>" method="post" enctype="multipart/form-data">
   <?php echo csrf_field(); ?>
   <input type="file" id="poster-file-input" accept="image/*,.pdf,.heic,.heif" multiple class="visually-hidden">
   <div id="poster-queue" class="poster-queue"></div>
