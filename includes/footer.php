@@ -22,13 +22,16 @@
     $tgUrl = setting('social_telegram');
     if ($igUrl || $ytUrl || $fbUrl || $twUrl || $waUrl || $tgUrl):
     ?>
-    <div class="site-footer__social">
-      <?php if ($igUrl): ?><a href="<?php echo e($igUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?php echo icon('instagram'); ?></a><?php endif; ?>
-      <?php if ($ytUrl): ?><a href="<?php echo e($ytUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><?php echo icon('youtube'); ?></a><?php endif; ?>
-      <?php if ($fbUrl): ?><a href="<?php echo e($fbUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?php echo icon('facebook'); ?></a><?php endif; ?>
-      <?php if ($twUrl): ?><a href="<?php echo e($twUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"><?php echo icon('twitter'); ?></a><?php endif; ?>
-      <?php if ($waUrl): ?><a href="<?php echo e($waUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><?php echo icon('whatsapp'); ?></a><?php endif; ?>
-      <?php if ($tgUrl): ?><a href="<?php echo e($tgUrl); ?>" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><?php echo icon('telegram'); ?></a><?php endif; ?>
+    <div class="site-footer__social-block">
+      <p class="site-footer__social-label">Follow us</p>
+      <div class="site-footer__social">
+        <?php if ($igUrl): ?><a href="<?php echo e($igUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__social-link site-footer__social-link--instagram" aria-label="Instagram"><?php echo icon('instagram'); ?></a><?php endif; ?>
+        <?php if ($ytUrl): ?><a href="<?php echo e($ytUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__social-link site-footer__social-link--youtube" aria-label="YouTube"><?php echo icon('youtube'); ?></a><?php endif; ?>
+        <?php if ($fbUrl): ?><a href="<?php echo e($fbUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__social-link site-footer__social-link--facebook" aria-label="Facebook"><?php echo icon('facebook'); ?></a><?php endif; ?>
+        <?php if ($twUrl): ?><a href="<?php echo e($twUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__social-link site-footer__social-link--twitter" aria-label="Twitter / X"><?php echo icon('twitter'); ?></a><?php endif; ?>
+        <?php if ($waUrl): ?><a href="<?php echo e($waUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__social-link site-footer__social-link--whatsapp" aria-label="WhatsApp"><?php echo icon('whatsapp'); ?></a><?php endif; ?>
+        <?php if ($tgUrl): ?><a href="<?php echo e($tgUrl); ?>" target="_blank" rel="noopener noreferrer" class="site-footer__social-link site-footer__social-link--telegram" aria-label="Telegram"><?php echo icon('telegram'); ?></a><?php endif; ?>
+      </div>
     </div>
     <?php endif; ?>
     <p class="site-footer__copyright">&copy; <?php echo date('Y'); ?> <?php echo e(setting('site_title', 'English Badi')); ?>. All rights reserved.</p>
