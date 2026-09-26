@@ -315,10 +315,62 @@
       syncOutput();
     });
 
+    // ---- IME / composition support (Telugu transliteration input methods
+    // compose a syllable over several keystrokes before committing it).
+    // document.queryCommandState(), called on every keyup to refresh the
+    // toolbar's active-button highlighting, can fight with an in-progress
+    // composition in some browsers - so it's skipped until the composition
+    // actually commits.
+    var isComposing = false;
+    body.addEventListener('compositionstart', function () { isComposing = true; });
+    body.addEventListener('compositionend', function () {
+      isComposing = false;
+      syncOutput();
+      updateActiveStates();
+    });
+
     body.addEventListener('input', syncOutput);
-    body.addEventListener('keyup', updateActiveStates);
+    body.addEventListener('keyup', function () {
+      if (isComposing) return;
+      updateActiveStates();
+    });
     body.addEventListener('mouseup', updateActiveStates);
     body.addEventListener('focus', updateActiveStates);
+
+    // ---- On-screen Telugu keyboard (typing aid - most physical keyboards
+    // have no Telugu layout). Inserts one character per tap at the cursor;
+    // mousedown is prevented on every key so tapping it never steals focus
+    // (and the caret position) away from the editor body first.
+    var teluguToggleBtn = root.querySelector('[data-action="toggle-telugu-keyboard"]');
+    var teluguKeyboard = root.querySelector('[data-telugu-keyboard]');
+    if (teluguToggleBtn && teluguKeyboard) {
+      teluguToggleBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var isOpen = teluguKeyboard.classList.toggle('is-open');
+        teluguToggleBtn.classList.toggle('is-active', isOpen);
+      });
+
+      teluguKeyboard.addEventListener('mousedown', function (e) {
+        if (e.target.closest('[data-key], [data-key-action]')) e.preventDefault();
+      });
+
+      teluguKeyboard.addEventListener('click', function (e) {
+        var keyBtn = e.target.closest('[data-key]');
+        var actionBtn = e.target.closest('[data-key-action]');
+        if (keyBtn) {
+          body.focus();
+          document.execCommand('insertText', false, keyBtn.getAttribute('data-key'));
+          syncOutput();
+        } else if (actionBtn) {
+          var keyAction = actionBtn.getAttribute('data-key-action');
+          body.focus();
+          if (keyAction === 'space') document.execCommand('insertText', false, ' ');
+          else if (keyAction === 'backspace') document.execCommand('delete');
+          else if (keyAction === 'enter') document.execCommand('insertParagraph');
+          syncOutput();
+        }
+      });
+    }
 
     syncOutput();
   }

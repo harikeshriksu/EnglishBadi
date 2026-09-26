@@ -67,10 +67,41 @@ function render_editor(string $name, string $html): void
         </div>
         <div class="editor-toolbar__group">
           <button type="button" class="editor-btn editor-btn--wide" data-action="toggle-telugu" title="Switch the editor's font between English and Telugu for comfort">Aa/&#3077;</button>
+          <button type="button" class="editor-btn editor-btn--wide" data-action="toggle-telugu-keyboard" title="Show an on-screen Telugu keyboard">Telugu keypad</button>
           <label class="editor-btn editor-btn--wide" style="gap:6px;" title="When ticked, pasting keeps the original formatting instead of plain text">
             <input type="checkbox" data-paste-mode style="width:15px;height:15px;"> Paste format
           </label>
           <button type="button" class="editor-btn editor-btn--wide" data-action="toggle-preview" title="Preview how this will look on the live site">Preview</button>
+        </div>
+      </div>
+      <div class="telugu-keyboard" data-telugu-keyboard>
+        <div class="telugu-keyboard__row">
+          <?php foreach (['అ','ఆ','ఇ','ఈ','ఉ','ఊ','ఋ','ఎ','ఏ','ఐ','ఒ','ఓ','ఔ','అం','అః'] as $ch): ?>
+          <button type="button" data-key="<?php echo e($ch); ?>"><?php echo e($ch); ?></button>
+          <?php endforeach; ?>
+        </div>
+        <div class="telugu-keyboard__row">
+          <?php foreach (['క','ఖ','గ','ఘ','ఙ','చ','ఛ','జ','ఝ','ఞ','ట','ఠ','డ','ఢ','ణ','త','థ'] as $ch): ?>
+          <button type="button" data-key="<?php echo e($ch); ?>"><?php echo e($ch); ?></button>
+          <?php endforeach; ?>
+        </div>
+        <div class="telugu-keyboard__row">
+          <?php foreach (['ద','ధ','న','ప','ఫ','బ','భ','మ','య','ర','ల','వ','శ','ష','స','హ','ళ','క్ష','ఱ'] as $ch): ?>
+          <button type="button" data-key="<?php echo e($ch); ?>"><?php echo e($ch); ?></button>
+          <?php endforeach; ?>
+        </div>
+        <div class="telugu-keyboard__row" title="Vowel signs - tap right after a consonant to change its vowel sound">
+          <?php foreach (['ా','ి','ీ','ు','ూ','ృ','ె','ే','ై','ొ','ో','ౌ','ం','ః','్'] as $ch): ?>
+          <button type="button" data-key="<?php echo e($ch); ?>"><?php echo e($ch); ?></button>
+          <?php endforeach; ?>
+        </div>
+        <div class="telugu-keyboard__row">
+          <?php foreach (['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'] as $ch): ?>
+          <button type="button" data-key="<?php echo e($ch); ?>"><?php echo e($ch); ?></button>
+          <?php endforeach; ?>
+          <button type="button" class="telugu-keyboard__wide" data-key-action="space">Space</button>
+          <button type="button" data-key-action="backspace">&larr;</button>
+          <button type="button" data-key-action="enter">&crarr;</button>
         </div>
       </div>
       <div class="editor-wrap">

@@ -294,6 +294,22 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 .editor-body blockquote { margin: 1em 0; padding: 8px 16px; border-left: 4px solid var(--color-green); background: var(--color-green-tint-1); }
 .editor-body:empty::before { content: attr(data-placeholder); color: #9aa1ab; }
 
+.telugu-keyboard { display: none; flex-direction: column; gap: 6px; padding: 10px; background: var(--color-bg-alt); border: 1px solid var(--color-border); border-top: none; }
+.telugu-keyboard.is-open { display: flex; }
+.telugu-keyboard__row { display: flex; flex-wrap: wrap; gap: 4px; }
+.telugu-keyboard__row button {
+  font-family: var(--font-telugu);
+  font-size: 1.05rem;
+  min-width: 34px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+  cursor: pointer;
+}
+.telugu-keyboard__row button:hover { background: var(--color-blue-tint-1); border-color: var(--color-blue); }
+.telugu-keyboard__wide { min-width: 90px !important; }
+
 .editor-preview {
   padding: 16px; border: 1.5px dashed var(--color-border); border-radius: var(--radius-sm); background: #fff; display: none;
 }
