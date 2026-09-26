@@ -351,6 +351,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 .quiz-question-block__order { margin-left: auto; display: flex; gap: 4px; }
 .quiz-option-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .quiz-option-row input[type="text"] { flex: 1; }
+.quiz-option-explanation { width: 100%; margin: 0 0 14px; font-size: 0.85rem; padding: 6px 10px; }
 .quiz-accepted-answer-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
 .quiz-accepted-answer-row input { flex: 1; }
 .icon-btn-sm { width: 34px; height: 34px; border-radius: 6px; border: 1px solid var(--color-border); background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }

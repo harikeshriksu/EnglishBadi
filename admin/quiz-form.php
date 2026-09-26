@@ -54,11 +54,12 @@ function render_existing_question_block(int $index, array $q, array $options): v
       <?php if ($type === 'mcq'): ?>
       <div class="form-field">
         <label>Options (select the correct one)</label>
-        <?php for ($i = 0; $i < 4; $i++): $opt = $options[$i] ?? ['option_text' => '', 'is_correct' => 0]; ?>
+        <?php for ($i = 0; $i < 4; $i++): $opt = $options[$i] ?? ['option_text' => '', 'is_correct' => 0, 'explanation' => '']; ?>
         <div class="quiz-option-row">
           <input type="radio" name="<?php echo $prefix; ?>[correct]" value="<?php echo $i; ?>" <?php echo (int) $opt['is_correct'] === 1 ? 'checked' : ''; ?>>
           <input type="text" name="<?php echo $prefix; ?>[options][<?php echo $i; ?>]" required value="<?php echo e($opt['option_text']); ?>" placeholder="Option <?php echo $i + 1; ?>">
         </div>
+        <input type="text" class="quiz-option-explanation" name="<?php echo $prefix; ?>[option_explanations][<?php echo $i; ?>]" value="<?php echo e($opt['explanation'] ?? ''); ?>" placeholder="Feedback shown if the learner picks this option (optional)">
         <?php endfor; ?>
       </div>
       <?php else: ?>
@@ -78,8 +79,8 @@ function render_existing_question_block(int $index, array $q, array $options): v
       </div>
       <?php endif; ?>
       <div class="form-field">
-        <label>Explanation (optional)</label>
-        <textarea name="<?php echo $prefix; ?>[explanation]" rows="2" placeholder="Shown to the learner after they answer"><?php echo e($q['explanation'] ?? ''); ?></textarea>
+        <label><?php echo $type === 'mcq' ? 'Fallback explanation (optional)' : 'Explanation (optional)'; ?></label>
+        <textarea name="<?php echo $prefix; ?>[explanation]" rows="2" placeholder="<?php echo $type === 'mcq' ? 'Shown only if the picked option has no feedback of its own' : 'Shown to the learner after they answer'; ?>"><?php echo e($q['explanation'] ?? ''); ?></textarea>
       </div>
     </div>
     <?php
@@ -128,12 +129,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             if ($type === 'mcq') {
                 $options = array_map('trim', (array) ($data['options'] ?? []));
                 $options = array_slice(array_pad($options, 4, ''), 0, 4);
+                $optionExplanations = array_map('trim', (array) ($data['option_explanations'] ?? []));
+                $optionExplanations = array_slice(array_pad($optionExplanations, 4, ''), 0, 4);
                 $correctIndex = (int) ($data['correct'] ?? 0);
                 if (in_array('', $options, true)) {
                     $errors[] = 'Please fill in all four options for: "' . $shortLabel . '"';
                     continue;
                 }
-                $parsedQuestions[] = ['type' => $type, 'text' => $text, 'explanation' => $explanation, 'order' => $order, 'options' => $options, 'correct' => $correctIndex];
+                $parsedQuestions[] = ['type' => $type, 'text' => $text, 'explanation' => $explanation, 'order' => $order, 'options' => $options, 'option_explanations' => $optionExplanations, 'correct' => $correctIndex];
             } else {
                 $answers = array_values(array_filter(array_map(static fn ($a) => str_replace('|', '', trim((string) $a)), (array) ($data['answers'] ?? [])), static fn ($a) => $a !== ''));
                 if (!$answers) {
@@ -177,8 +180,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                         $stmt->execute([$quizId, 'mcq', $pq['text'], $pq['explanation'] ?: null, $order]);
                         $qid = (int) $db->lastInsertId();
                         foreach ($pq['options'] as $i => $optText) {
-                            $optStmt = $db->prepare('INSERT INTO quiz_options (question_id, option_text, is_correct, display_order) VALUES (?,?,?,?)');
-                            $optStmt->execute([$qid, $optText, $i === $pq['correct'] ? 1 : 0, $i]);
+                            $optStmt = $db->prepare('INSERT INTO quiz_options (question_id, option_text, is_correct, explanation, display_order) VALUES (?,?,?,?,?)');
+                            $optStmt->execute([$qid, $optText, $i === $pq['correct'] ? 1 : 0, $pq['option_explanations'][$i] !== '' ? $pq['option_explanations'][$i] : null, $i]);
                         }
                     } else {
                         $stmt = $db->prepare('INSERT INTO quiz_questions (quiz_id, question_type, question_text, accepted_answers, explanation, display_order) VALUES (?,?,?,?,?,?)');

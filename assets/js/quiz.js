@@ -171,6 +171,7 @@
     var isCorrect = false;
     var givenDisplay = '';
     var correctDisplay = '';
+    var explanation = q.explanation;
 
     if (q.question_type === 'mcq') {
       var correctOpt = q.options.filter(function (o) { return o.is_correct; })[0];
@@ -178,6 +179,7 @@
       correctDisplay = correctOpt ? correctOpt.option_text : '';
       givenDisplay = pickedOpt ? pickedOpt.option_text : '';
       isCorrect = !!pickedOpt && !!pickedOpt.is_correct;
+      if (pickedOpt && pickedOpt.explanation) explanation = pickedOpt.explanation;
 
       Array.prototype.forEach.call(host.querySelectorAll('.quiz-option'), function (label) {
         var input = label.querySelector('input');
@@ -207,10 +209,10 @@
       given_answer: givenDisplay,
       correct_answer: correctDisplay,
       is_correct: isCorrect,
-      explanation: q.explanation,
+      explanation: explanation,
     });
 
-    renderFeedback(host, isCorrect, q.explanation);
+    renderFeedback(host, isCorrect, explanation);
 
     primaryBtn.dataset.state = 'next';
     primaryBtn.textContent = state.index === total - 1 ? 'See results' : 'Next';

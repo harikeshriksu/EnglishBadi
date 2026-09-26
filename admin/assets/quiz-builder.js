@@ -95,6 +95,10 @@
         row.appendChild(radio);
         row.appendChild(el('input', { type: 'text', name: prefix + '[options][' + i + ']', required: '', placeholder: 'Option ' + (i + 1) }));
         optField.appendChild(row);
+        optField.appendChild(el('input', {
+          type: 'text', class: 'quiz-option-explanation', name: prefix + '[option_explanations][' + i + ']',
+          placeholder: 'Feedback shown if the learner picks this option (optional)',
+        }));
       }
       block.appendChild(optField);
     } else {
@@ -109,8 +113,11 @@
     }
 
     var explField = el('div', { class: 'form-field' });
-    explField.appendChild(el('label', { text: 'Explanation (optional)' }));
-    explField.appendChild(el('textarea', { name: prefix + '[explanation]', rows: '2', placeholder: 'Shown to the learner after they answer' }));
+    explField.appendChild(el('label', { text: type === 'mcq' ? 'Fallback explanation (optional)' : 'Explanation (optional)' }));
+    explField.appendChild(el('textarea', {
+      name: prefix + '[explanation]', rows: '2',
+      placeholder: type === 'mcq' ? 'Shown only if the picked option has no feedback of its own' : 'Shown to the learner after they answer',
+    }));
     block.appendChild(explField);
 
     return block;

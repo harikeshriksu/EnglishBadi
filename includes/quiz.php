@@ -56,7 +56,7 @@ function get_quiz_questions_for_taking(PDO $db, int $quizId): array
 
     foreach ($questions as &$q) {
         if ($q['question_type'] === 'mcq') {
-            $optStmt = $db->prepare('SELECT id, option_text, is_correct FROM quiz_options WHERE question_id = ? ORDER BY display_order, id');
+            $optStmt = $db->prepare('SELECT id, option_text, is_correct, explanation FROM quiz_options WHERE question_id = ? ORDER BY display_order, id');
             $optStmt->execute([$q['id']]);
             $q['options'] = $optStmt->fetchAll();
         } else {
@@ -89,8 +89,10 @@ function grade_quiz_attempt(PDO $db, int $quizId, array $answers): array
         $correctDisplay = '';
         $givenDisplay = '';
 
+        $optionExplanation = null;
+
         if ($q['question_type'] === 'mcq') {
-            $optStmt = $db->prepare('SELECT id, option_text, is_correct FROM quiz_options WHERE question_id = ? ORDER BY display_order, id');
+            $optStmt = $db->prepare('SELECT id, option_text, is_correct, explanation FROM quiz_options WHERE question_id = ? ORDER BY display_order, id');
             $optStmt->execute([$q['id']]);
             $options = $optStmt->fetchAll();
 
@@ -102,6 +104,7 @@ function grade_quiz_attempt(PDO $db, int $quizId, array $answers): array
                 }
                 if ((int) $opt['id'] === $givenOptionId) {
                     $givenDisplay = $opt['option_text'];
+                    $optionExplanation = $opt['explanation'];
                     if ((int) $opt['is_correct'] === 1) {
                         $isCorrect = true;
                     }
@@ -125,7 +128,7 @@ function grade_quiz_attempt(PDO $db, int $quizId, array $answers): array
             'given_answer'   => $givenDisplay,
             'correct_answer' => $correctDisplay,
             'is_correct'     => $isCorrect,
-            'explanation'    => $q['explanation'],
+            'explanation'    => ($optionExplanation !== null && $optionExplanation !== '') ? $optionExplanation : $q['explanation'],
         ];
     }
 

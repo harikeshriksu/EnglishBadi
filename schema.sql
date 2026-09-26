@@ -193,6 +193,7 @@ CREATE TABLE IF NOT EXISTS quiz_options (
   question_id INT UNSIGNED NOT NULL,
   option_text VARCHAR(500) NOT NULL,
   is_correct TINYINT(1) NOT NULL DEFAULT 0,
+  explanation TEXT NULL,
   display_order INT NOT NULL DEFAULT 0,
   CONSTRAINT fk_option_question FOREIGN KEY (question_id) REFERENCES quiz_questions(id) ON DELETE CASCADE,
   INDEX idx_question (question_id)

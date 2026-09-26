@@ -36,6 +36,7 @@ $quizData = [
                     'id'          => (int) $o['id'],
                     'option_text' => $o['option_text'],
                     'is_correct'  => (bool) $o['is_correct'],
+                    'explanation' => $o['explanation'],
                 ];
             }, $q['options']),
         ];
