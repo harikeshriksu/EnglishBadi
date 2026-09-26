@@ -76,7 +76,7 @@ function fetch_homepage_feed(PDO $db, bool $popularOnly, int $limit): array
 }
 
 $latest = fetch_homepage_feed($db, false, 6);
-$popular = fetch_homepage_feed($db, true, 6);
+$popular = fetch_homepage_feed($db, true, 18);
 
 $pageSeo = [
     'title'       => '',
@@ -117,13 +117,13 @@ require_once __DIR__ . '/includes/header.php';
     <?php echo icon_html('book', 'home-intro__callout-icon'); ?>
     <p><?php echo e(setting('homepage_intro')); ?></p>
   </div>
-  <a href="<?php echo e(base_url('/start-here')); ?>" class="btn btn--primary">Start Here</a>
+  <?php /* "Start Here" CTA hidden for now, alongside the nav item - not deleted, see start-here.php */ ?>
 </div>
 
 <?php if ($popular): ?>
 <section class="latest-strip container">
   <h2>Popular content</h2>
-  <div class="latest-grid">
+  <div class="latest-grid latest-grid--scroll">
     <?php foreach ($popular as $item): ?>
     <a class="latest-card" href="<?php echo e($item['url']); ?>">
       <div class="latest-card__thumb">

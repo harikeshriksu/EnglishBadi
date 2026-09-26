@@ -1,5 +1,18 @@
 <?php
+/**
+ * About and Contact are now one page for visitors (about.php renders both,
+ * with the contact form living at /about#contact) - this file still
+ * receives the form's POST (kept as its own endpoint so the validation/
+ * spam-check logic isn't duplicated) and redirects GET requests there.
+ * It only renders its own page in the one case that can't cleanly
+ * redirect: a submission with validation errors, so the visitor sees
+ * what to fix.
+ */
 require_once __DIR__ . '/includes/config.php';
+
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    redirect(base_url('/about#contact'));
+}
 
 $stmt = db()->prepare('SELECT * FROM pages WHERE slug = ?');
 $stmt->execute(['contact']);
@@ -48,7 +61,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             // Same success message whether or not this looked like spam, so a
             // bot (or a sender we quietly filtered) can't tell it was blocked.
             flash_set('success', "Thanks! Your message has been sent. We'll get back to you soon.");
-            redirect(base_url('/contact'));
+            redirect(base_url('/about#contact'));
         }
     }
 }

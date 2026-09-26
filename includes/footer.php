@@ -3,7 +3,7 @@
   <div class="site-footer__inner">
     <nav class="site-footer__links" aria-label="Footer">
       <a href="<?php echo e(base_url('/about')); ?>">About</a>
-      <a href="<?php echo e(base_url('/contact')); ?>">Contact</a>
+      <a href="<?php echo e(base_url('/about#contact')); ?>">Contact</a>
       <a href="<?php echo e(base_url('/privacy')); ?>">Privacy Policy</a>
       <a href="<?php echo e(base_url('/terms')); ?>">Terms</a>
     </nav>

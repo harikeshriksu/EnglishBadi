@@ -10,13 +10,16 @@ $pageSeo = $pageSeo ?? [];
 $activeNav = $activeNav ?? '';
 $navItems = [
     'home'       => ['/', 'Home'],
-    'start-here' => ['/start-here', 'Start Here'],
+    // 'start-here' hidden for now (not deleted - start-here.php still
+    // works if linked directly, just not in the nav while we try the
+    // site without it).
     'lessons'    => ['/lessons', 'Lessons'],
     'links'      => ['/links', 'Video Lessons'],
     'posters'    => ['/posters', 'Posters'],
     'quizzes'    => ['/quizzes', 'Quizzes'],
     'about'      => ['/about', 'About'],
-    'contact'    => ['/contact', 'Contact'],
+    // 'contact' merged into the About page (see about.php) - contact.php
+    // now just redirects there, so it's not a separate nav destination.
 ];
 $flash = flash_get();
 $learner = current_learner();

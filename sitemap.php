@@ -7,7 +7,7 @@ header('Content-Type: application/xml; charset=utf-8');
 $urls = [];
 $urls[] = ['loc' => base_url('/'), 'priority' => '1.0'];
 
-foreach (['start-here', 'lessons', 'links', 'posters', 'quizzes', 'about', 'contact'] as $path) {
+foreach (['lessons', 'links', 'posters', 'quizzes', 'about'] as $path) {
     $urls[] = ['loc' => base_url('/' . $path), 'priority' => '0.8'];
 }
 
