@@ -120,11 +120,11 @@ require_once __DIR__ . '/includes/header.php';
   <a href="<?php echo e(base_url('/start-here')); ?>" class="btn btn--primary">Start Here</a>
 </div>
 
-<?php if ($latest): ?>
+<?php if ($popular): ?>
 <section class="latest-strip container">
-  <h2>Latest content</h2>
+  <h2>Popular content</h2>
   <div class="latest-grid">
-    <?php foreach ($latest as $item): ?>
+    <?php foreach ($popular as $item): ?>
     <a class="latest-card" href="<?php echo e($item['url']); ?>">
       <div class="latest-card__thumb">
         <span class="latest-card__type"><?php echo e($item['type']); ?></span>
@@ -144,11 +144,11 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 <?php endif; ?>
 
-<?php if ($popular): ?>
+<?php if ($latest): ?>
 <section class="latest-strip container">
-  <h2>Popular content</h2>
+  <h2>Latest content</h2>
   <div class="latest-grid">
-    <?php foreach ($popular as $item): ?>
+    <?php foreach ($latest as $item): ?>
     <a class="latest-card" href="<?php echo e($item['url']); ?>">
       <div class="latest-card__thumb">
         <span class="latest-card__type"><?php echo e($item['type']); ?></span>
