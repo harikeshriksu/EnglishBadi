@@ -9,7 +9,7 @@ if ($id) {
     $stmt->execute([$id]);
     $link = $stmt->fetch();
     if (!$link) {
-        flash_set('error', 'Link not found.');
+        flash_set('error', 'Video lesson not found.');
         redirect(base_url('/admin/links.php'));
     }
 }
@@ -39,7 +39,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $old['is_popular'] = isset($_POST['is_popular']) ? 1 : 0;
 
         if ($old['name'] === '' || mb_strlen($old['name']) > 255) {
-            $errors[] = 'Please enter a link name.';
+            $errors[] = 'Please enter a video lesson name.';
         }
         if (!filter_var($old['url'], FILTER_VALIDATE_URL) || !preg_match('#^https?://#i', $old['url'])) {
             $errors[] = 'Please enter a valid URL starting with http:// or https://.';
@@ -73,7 +73,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     $thumbPaths['thumbnail'], $thumbPaths['thumbnail_webp'], $youtubeId, $old['display_order'], $old['status'], $old['is_popular'],
                     $link['id'],
                 ]);
-                flash_set('success', 'Link updated.');
+                flash_set('success', 'Video lesson updated.');
             } else {
                 $slug = unique_slug($old['name'], 'links');
                 $stmt = db()->prepare(
@@ -83,14 +83,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     $old['name'], $slug, $old['description'] ?: null, $old['url'], $categoryIdValue,
                     $thumbPaths['thumbnail'], $thumbPaths['thumbnail_webp'], $youtubeId, $old['display_order'], $old['status'], $old['is_popular'],
                 ]);
-                flash_set('success', 'Link created.');
+                flash_set('success', 'Video lesson created.');
             }
             redirect(base_url('/admin/links.php'));
         }
     }
 }
 
-$adminPageTitle = $link ? 'Edit Link' : 'Add Link';
+$adminPageTitle = $link ? 'Edit Video Lesson' : 'Add Video Lesson';
 $activeAdminNav = 'links';
 require_once __DIR__ . '/includes/admin-header.php';
 ?>
@@ -105,7 +105,7 @@ require_once __DIR__ . '/includes/admin-header.php';
 <form method="post" enctype="multipart/form-data" class="admin-card">
   <?php echo csrf_field(); ?>
   <div class="form-field">
-    <label for="name">Link name</label>
+    <label for="name">Video lesson name</label>
     <input type="text" id="name" name="name" required maxlength="255" value="<?php echo e($old['name']); ?>">
   </div>
   <div class="form-field">
@@ -165,7 +165,7 @@ require_once __DIR__ . '/includes/admin-header.php';
   <?php endif; ?>
 
   <div class="form-actions">
-    <button type="submit" class="btn btn--primary">Save Link</button>
+    <button type="submit" class="btn btn--primary">Save Video Lesson</button>
     <a href="<?php echo e(base_url('/admin/links.php')); ?>" class="btn btn--outline">Cancel</a>
   </div>
 </form>

@@ -12,7 +12,7 @@ $navItems = [
     'home'       => ['/', 'Home'],
     'start-here' => ['/start-here', 'Start Here'],
     'lessons'    => ['/lessons', 'Lessons'],
-    'links'      => ['/links', 'Links'],
+    'links'      => ['/links', 'Video Lessons'],
     'posters'    => ['/posters', 'Posters'],
     'quizzes'    => ['/quizzes', 'Quizzes'],
     'about'      => ['/about', 'About'],
@@ -42,7 +42,7 @@ $learner = current_learner();
     <nav class="site-nav" id="site-nav" aria-label="Main menu">
       <form class="site-search" action="<?php echo e(base_url('/search')); ?>" method="get" role="search">
         <label for="site-search-input" class="visually-hidden">Search the site</label>
-        <input type="search" id="site-search-input" name="q" placeholder="Search lessons, links, quizzes..." value="<?php echo e($_GET['q'] ?? ''); ?>">
+        <input type="search" id="site-search-input" name="q" placeholder="Search lessons, video lessons, quizzes..." value="<?php echo e($_GET['q'] ?? ''); ?>">
         <button type="submit" aria-label="Search"><?php echo icon('search'); ?></button>
       </form>
       <?php foreach ($navItems as $key => [$href, $label]): ?>

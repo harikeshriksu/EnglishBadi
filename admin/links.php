@@ -13,7 +13,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && ($_POST['action'] ?? '') ==
         if ($row) {
             delete_image_files(array_values($row));
             db()->prepare('DELETE FROM links WHERE id = ?')->execute([$id]);
-            flash_set('success', 'Link deleted.');
+            flash_set('success', 'Video lesson deleted.');
         }
     }
     redirect(base_url('/admin/links.php'));
@@ -32,13 +32,13 @@ $stmt = db()->prepare("SELECT l.*, c.name AS category_name FROM links l LEFT JOI
 $stmt->execute($params);
 $links = $stmt->fetchAll();
 
-$adminPageTitle = 'Links';
+$adminPageTitle = 'Video Lessons';
 $activeAdminNav = 'links';
 require_once __DIR__ . '/includes/admin-header.php';
 ?>
 <div class="admin-page-header">
-  <h1>Links</h1>
-  <a href="<?php echo e(base_url('/admin/link-form.php')); ?>" class="btn btn--primary"><?php echo icon('plus'); ?> Add a link</a>
+  <h1>Video Lessons</h1>
+  <a href="<?php echo e(base_url('/admin/link-form.php')); ?>" class="btn btn--primary"><?php echo icon('plus'); ?> Add a video lesson</a>
 </div>
 
 <form method="get" class="admin-filter-bar">
@@ -47,7 +47,7 @@ require_once __DIR__ . '/includes/admin-header.php';
 </form>
 
 <?php if (!$links): ?>
-  <p class="admin-empty">No links found. <a href="<?php echo e(base_url('/admin/link-form.php')); ?>">Add your first link</a>.</p>
+  <p class="admin-empty">No video lessons found. <a href="<?php echo e(base_url('/admin/link-form.php')); ?>">Add your first video lesson</a>.</p>
 <?php else: ?>
 <div class="table-scroll">
 <table class="admin-table">
@@ -66,7 +66,7 @@ require_once __DIR__ . '/includes/admin-header.php';
             <?php echo csrf_field(); ?>
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="id" value="<?php echo (int) $l['id']; ?>">
-            <button type="submit" class="icon-btn-sm" title="Delete" data-confirm="Delete this link? This cannot be undone."><?php echo icon('trash'); ?></button>
+            <button type="submit" class="icon-btn-sm" title="Delete" data-confirm="Delete this video lesson? This cannot be undone."><?php echo icon('trash'); ?></button>
           </form>
         </div>
       </td>

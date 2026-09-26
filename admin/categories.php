@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/includes/admin-guard.php';
 
-$types = ['lesson' => 'Lesson', 'link' => 'Link', 'poster' => 'Poster'];
+$types = ['lesson' => 'Lesson', 'link' => 'Video Lesson', 'poster' => 'Poster'];
 $usageTable = ['lesson' => 'lessons', 'link' => 'links', 'poster' => 'posters'];
 
 function unique_category_slug(string $name, string $type, ?int $excludeId = null): string
@@ -101,7 +101,7 @@ $activeAdminNav = 'categories';
 require_once __DIR__ . '/includes/admin-header.php';
 ?>
 <div class="admin-page-header"><h1>Categories</h1></div>
-<p style="color:var(--color-ink-light);margin-bottom:20px;">Manage the categories used to organise Lessons, Links and Posters.</p>
+<p style="color:var(--color-ink-light);margin-bottom:20px;">Manage the categories used to organise Lessons, Video Lessons and Posters.</p>
 
 <?php foreach ($types as $type => $label): ?>
 <div class="admin-card">

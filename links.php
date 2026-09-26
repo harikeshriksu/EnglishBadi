@@ -27,14 +27,14 @@ foreach ($categories as $c) {
 }
 
 $pageSeo = [
-    'title'       => $activeCategory ? $activeCategory['name'] . ' Links' : 'Links',
+    'title'       => $activeCategory ? $activeCategory['name'] . ' Video Lessons' : 'Video Lessons',
     'description' => 'Curated videos and resources to help you practice English - hand-picked and organised by topic.',
 ];
 $activeNav = 'links';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div class="container section">
-  <h1 class="page-title">Links</h1>
+  <h1 class="page-title">Video Lessons</h1>
   <p class="page-subtitle">Hand-picked videos and resources worth your time.</p>
 
   <?php if ($categories): ?>
@@ -47,7 +47,7 @@ require_once __DIR__ . '/includes/header.php';
   <?php endif; ?>
 
   <?php if (!$links): ?>
-    <p class="muted">No links here yet. Please check back soon.</p>
+    <p class="muted">No video lessons here yet. Please check back soon.</p>
   <?php else: ?>
   <div class="link-list">
     <?php foreach ($links as $l):

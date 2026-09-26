@@ -26,14 +26,14 @@ require_once __DIR__ . '/includes/admin-header.php';
 
 <div class="admin-quick-add">
   <a href="<?php echo e(base_url('/admin/lesson-form.php')); ?>"><?php echo icon('plus'); ?> Add a lesson</a>
-  <a href="<?php echo e(base_url('/admin/link-form.php')); ?>"><?php echo icon('plus'); ?> Add a link</a>
+  <a href="<?php echo e(base_url('/admin/link-form.php')); ?>"><?php echo icon('plus'); ?> Add a video lesson</a>
   <a href="<?php echo e(base_url('/admin/posters.php')); ?>"><?php echo icon('plus'); ?> Add a poster</a>
   <a href="<?php echo e(base_url('/admin/quiz-form.php')); ?>"><?php echo icon('plus'); ?> Add a quiz</a>
 </div>
 
 <div class="admin-stats">
   <div class="admin-stat"><p class="admin-stat__value"><?php echo $counts['lessons']; ?></p><p class="admin-stat__label">Lessons</p></div>
-  <div class="admin-stat"><p class="admin-stat__value"><?php echo $counts['links']; ?></p><p class="admin-stat__label">Links</p></div>
+  <div class="admin-stat"><p class="admin-stat__value"><?php echo $counts['links']; ?></p><p class="admin-stat__label">Video Lessons</p></div>
   <div class="admin-stat"><p class="admin-stat__value"><?php echo $counts['posters']; ?></p><p class="admin-stat__label">Posters</p></div>
   <div class="admin-stat"><p class="admin-stat__value"><?php echo $counts['quizzes']; ?></p><p class="admin-stat__label">Quizzes</p></div>
 </div>
@@ -51,8 +51,8 @@ require_once __DIR__ . '/includes/admin-header.php';
     <?php endforeach; endif; ?>
   </div>
   <div class="admin-card">
-    <h2>Recent links</h2>
-    <?php if (!$recentLinks): ?><p class="admin-empty">No links yet.</p><?php else: foreach ($recentLinks as $l): ?>
+    <h2>Recent video lessons</h2>
+    <?php if (!$recentLinks): ?><p class="admin-empty">No video lessons yet.</p><?php else: foreach ($recentLinks as $l): ?>
       <p><a href="<?php echo e(base_url('/admin/link-form.php?id=' . $l['id'])); ?>"><?php echo e($l['name']); ?></a> <span class="badge badge--<?php echo e($l['status']); ?>"><?php echo e($l['status']); ?></span></p>
     <?php endforeach; endif; ?>
   </div>

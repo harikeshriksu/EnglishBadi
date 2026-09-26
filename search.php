@@ -39,7 +39,7 @@ $totalResults = array_sum(array_map('count', $results));
 
 $pageSeo = [
     'title'       => $q !== '' ? 'Search results for "' . $q . '"' : 'Search',
-    'description' => 'Search English Badi lessons, links, posters and quizzes.',
+    'description' => 'Search English Badi lessons, video lessons, posters and quizzes.',
     'noindex'     => true,
 ];
 $activeNav = '';
@@ -48,7 +48,7 @@ require_once __DIR__ . '/includes/header.php';
 <div class="container section">
   <h1 class="page-title">Search</h1>
   <?php if ($q === ''): ?>
-    <p class="page-subtitle">Use the search box in the menu to search lessons, links, posters and quizzes.</p>
+    <p class="page-subtitle">Use the search box in the menu to search lessons, video lessons, posters and quizzes.</p>
   <?php else: ?>
     <p class="page-subtitle"><?php echo (int) $totalResults; ?> result<?php echo $totalResults === 1 ? '' : 's'; ?> for &ldquo;<?php echo e($q); ?>&rdquo;</p>
 
@@ -66,7 +66,7 @@ require_once __DIR__ . '/includes/header.php';
 
     <?php if ($results['links']): ?>
     <div class="search-results-group">
-      <h2>Links</h2>
+      <h2>Video Lessons</h2>
       <?php foreach ($results['links'] as $r): ?>
       <div class="search-result-item">
         <a href="<?php echo e(base_url('/links#link-' . $r['id'])); ?>"><?php echo e($r['name']); ?></a>

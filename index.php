@@ -31,7 +31,7 @@ function fetch_homepage_feed(PDO $db, bool $popularOnly, int $limit): array
          FROM links WHERE status = 'published'{$statusExtra} ORDER BY created_at DESC LIMIT {$limit}"
     )->fetchAll();
     foreach ($links as &$r) {
-        $r['type'] = 'Link';
+        $r['type'] = 'Video Lesson';
         $r['url'] = base_url('/links#link-' . $r['id']);
         $r['title_display'] = $r['name'];
         if ($r['youtube_video_id']) {
@@ -95,7 +95,7 @@ require_once __DIR__ . '/includes/header.php';
     </a>
     <a href="<?php echo e(base_url('/links')); ?>" class="tile tile--links">
       <?php echo icon_html('link', 'tile__icon'); ?>
-      <span class="tile__label">Links</span>
+      <span class="tile__label">Video Lessons</span>
       <span class="tile__subtitle" lang="te">వీడియోలు &amp; వనరులు</span>
     </a>
     <a href="<?php echo e(base_url('/posters')); ?>" class="tile tile--posters">
